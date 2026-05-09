@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoViz — Learn DSA Interactively with Animations</title>
+    <meta name="description" content="AlgoViz is a free interactive platform to learn Data Structures and Algorithms through step-by-step visualizations, code examples in 5 languages, and detailed explanations.">
+    <meta name="theme-color" content="#378ADD">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:title" content="AlgoViz — Learn DSA Interactively with Animations">
+    <meta property="og:description" content="AlgoViz is a free interactive platform to learn Data Structures and Algorithms through step-by-step visualizations, code examples in 5 languages, and detailed explanations.">
+    <meta property="og:url" content="https://manoj-2514.github.io/algoviz/">
+    <meta property="og:image" content="https://manoj-2514.github.io/algoviz/favicon.svg">
+    <meta property="og:site_name" content="AlgoViz">
+    <meta property="og:type" content="website">
+    <script>
+        let t = localStorage.getItem('av_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>AlgoViz</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home"       class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#algorithms" class="nav-link">Algorithms</a></li>
+                <li class="nav-item"><a href="#learn"      class="nav-link">Learn DSA</a></li>
+                <li class="nav-item"><a href="#about"      class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#contact"    class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+                    <span class="nav-bar"></span>
+                    <span class="nav-bar"></span>
+                    <span class="nav-bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Master Algorithms Through Visualization</h1>
+                <p class="hero-subtitle">
+                    Learn Data Structures and Algorithms interactively with step-by-step animations,
+                    detailed explanations, and code implementations in multiple languages.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#algorithms" class="btn btn-primary">Explore Algorithms</a>
+                    <a href="#learn"      class="btn btn-secondary">Start Learning</a>
+                </div>
+                <p style="margin-top:1.2rem;font-size:0.82rem;opacity:0.6;color:white;">
+                    Press <kbd style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);border-radius:4px;padding:2px 7px;font-size:0.78rem;">?</kbd> for keyboard shortcuts
+                </p>
+            </div>
+            <div class="hero-visual">
+                <div class="algorithm-preview">
+                    <div class="hero-bar" style="height: 20%"></div>
+                    <div class="hero-bar" style="height: 40%"></div>
+                    <div class="hero-bar" style="height: 60%"></div>
+                    <div class="hero-bar" style="height: 80%"></div>
+                    <div class="hero-bar" style="height: 100%"></div>
+                    <div class="hero-bar" style="height: 30%"></div>
+                    <div class="hero-bar" style="height: 70%"></div>
+                    <div class="hero-bar" style="height: 50%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Visualization Helps Learning</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Visual Understanding</h3>
+                    <p>See algorithms in action with step-by-step animations that make complex concepts easy to grasp.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
+                    <h3>Multiple Languages</h3>
+                    <p>Study implementations in C++, Python, Java, JavaScript, and C to match your learning preferences.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>Interactive Controls</h3>
+                    <p>Control animation speed, adjust array size, and pause at any point to understand each step.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Complexity Analysis</h3>
+                    <p>Learn time and space complexity with detailed explanations and real-world examples.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithm Categories -->
+    <section id="algorithms" class="algorithm-categories">
+        <div class="container">
+            <h2 class="section-title">Explore Algorithms</h2>
+            <div class="categories-grid">
+                <div class="category-card" data-category="sorting" onclick="window.location.href='sorting.html'" style="cursor: pointer;">
+                    <div class="category-icon"><i class="fas fa-sort"></i></div>
+                    <h3>Sorting Algorithms</h3>
+                    <p>Bubble, Selection, Insertion, Merge, Quick, Heap Sort</p>
+                    <a href="sorting.html" class="btn btn-outline" onclick="event.stopPropagation()">Explore</a>
+                </div>
+                <div class="category-card" data-category="searching" onclick="window.location.href='searching.html'" style="cursor: pointer;">
+                    <div class="category-icon"><i class="fas fa-search"></i></div>
+                    <h3>Searching Algorithms</h3>
+                    <p>Linear Search, Binary Search</p>
+                    <a href="searching.html" class="btn btn-outline" onclick="event.stopPropagation()">Explore</a>
+                </div>
+                <div class="category-card" data-category="graph" onclick="window.location.href='graph.html'" style="cursor: pointer;">
+                    <div class="category-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>Graph Algorithms</h3>
+                    <p>BFS, DFS, Dijkstra, Prim, Kruskal</p>
+                    <a href="graph.html" class="btn btn-outline" onclick="event.stopPropagation()">Explore</a>
+                </div>
+                <div class="category-card" data-category="other" onclick="window.location.href='other.html'" style="cursor: pointer;">
+                    <div class="category-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Other Algorithms</h3>
+                    <p>Kadane, Floyd Warshall, KMP, Rabin Karp</p>
+                    <a href="other.html" class="btn btn-outline" onclick="event.stopPropagation()">Explore</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learn DSA Section -->
+    <section id="learn" class="learn-dsa">
+        <div class="container">
+            <h2 class="section-title">Learn Data Structures &amp; Algorithms</h2>
+            <div class="dsa-grid">
+                <div class="dsa-card">
+                    <h3><i class="fas fa-list"></i> Arrays</h3>
+                    <p>Linear data structure storing elements of same type.</p>
+                    <p class="use-case"><small>⚡ Use Case: Storing continuous elements and fast index-based lookups.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Memory allocation and basic pointers.</small></p>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-outline" onclick="openDSAModal('arrays')">Learn More</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('arrays')">▶ Watch Video</button>
+                    </div>
+                </div>
+                <div class="dsa-card">
+                    <h3><i class="fas fa-link"></i> Linked Lists</h3>
+                    <p>Dynamic data structure with nodes containing data and pointers.</p>
+                    <p class="use-case"><small>⚡ Use Case: Dynamic memory allocation without continuous blocks.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Node connections and dynamic resizing logic.</small></p>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-outline" onclick="openDSAModal('linked-lists')">Learn More</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('linked-lists')">▶ Watch Video</button>
+                    </div>
+                </div>
+                <div class="dsa-card">
+                    <h3><i class="fas fa-layer-group"></i> Stacks &amp; Queues</h3>
+                    <p>Linear structures following LIFO and FIFO principles.</p>
+                    <p class="use-case"><small>⚡ Use Case: Undo mechanisms (Stack) and task scheduling (Queue).</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: LIFO &amp; FIFO principles in action.</small></p>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-outline" onclick="openDSAModal('stacks-queues')">Learn More</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('stacks-queues')">▶ Watch Video</button>
+                    </div>
+                </div>
+                <div class="dsa-card">
+                    <h3><i class="fas fa-tree"></i> Trees</h3>
+                    <p>Hierarchical data structure with root and child nodes.</p>
+                    <p class="use-case"><small>⚡ Use Case: Hierarchical data representations like folder structures.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Deep search algorithms and tree traversals.</small></p>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-outline" onclick="openDSAModal('trees')">Learn More</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('trees')">▶ Watch Video</button>
+                    </div>
+                </div>
+                <div class="dsa-card">
+                    <h3><i class="fas fa-project-diagram"></i> Graphs</h3>
+                    <p>Non-linear structure with vertices and edges.</p>
+                    <p class="use-case"><small>⚡ Use Case: Social networks, mapping navigation, and routing.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Complex relationship mapping and pathfinding algorithms.</small></p>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-outline" onclick="openDSAModal('graphs')">Learn More</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('graphs')">▶ Watch Video</button>
+                    </div>
+                </div>
+                <div class="dsa-card">
+                    <h3><i class="fas fa-hashtag"></i> Hash Tables</h3>
+                    <p>Key-value pairs with constant time access.</p>
+                    <p class="use-case"><small>⚡ Use Case: Implementing dictionary interfaces and fast caching.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Hash functions and constant time O(1) lookups.</small></p>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-outline" onclick="openDSAModal('hash-tables')">Learn More</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('hash-tables')">▶ Watch Video</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DSA Information Modal -->
+    <div id="dsaModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="dsaModalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="dsaModalTitle">Data Structure Details</h2>
+                <span class="close dsa-close" role="button" tabindex="0" aria-label="Close">&times;</span>
+            </div>
+            <div class="modal-body" id="dsaModalBody" style="padding:1.5rem;line-height:1.7;font-size:1.05rem;">
+                <!-- Content injected via JS -->
+            </div>
+            <div class="modal-footer" style="padding:1.5rem; border-top:1px solid #eee; text-align:right;">
+                <button class="btn btn-primary" onclick="closeDSAModal()">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
+        <div class="modal-content" style="max-width: 800px; padding-bottom: 0;">
+            <div class="modal-header">
+                <h2 id="videoModalTitle">Learn Data Structures</h2>
+                <span class="close video-close" role="button" tabindex="0" aria-label="Close" onclick="closeVideoModal()">&times;</span>
+            </div>
+            <div class="video-language-selector" style="padding: 15px; background: #f8f9fa; border-bottom: 1px solid #eee;">
+                <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: #444;">📘 Concept Video</h4>
+                <div style="display:flex; gap:10px; margin-bottom: 15px;">
+                    <button class="lang-tab active" data-vid-type="concept" onclick="changeVideoLang('concept')" id="conceptBtn">Core Concept</button>
+                </div>
+                
+                <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: #444;">💻 Implementation (Optional)</h4>
+                <div id="implementationButtonsContainer" style="display:flex; gap:10px; overflow-x: auto;">
+                    <!-- Buttons dynamically injected via JS -->
+                </div>
+            </div>
+            <div class="modal-body" style="padding:0;">
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+                    <iframe id="youtubePlayer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About AlgoViz</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        AlgoViz is a free interactive educational platform designed to make learning Data Structures
+                        and Algorithms intuitive and engaging. Through visual animations and comprehensive explanations,
+                        students can understand complex algorithmic concepts with ease.
+                    </p>
+                    <p>
+                        Our mission is to bridge the gap between theoretical knowledge and practical understanding
+                        by providing visual representations that bring algorithms to life.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat"><h3>15+</h3><p>Algorithms</p></div>
+                    <div class="stat"><h3>5</h3><p>Programming Languages</p></div>
+                    <div class="stat"><h3>100%</h3><p>Interactive</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>Have questions or suggestions about AlgoViz? We'd love to hear from you!</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>hello@algoviz.dev</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <span>Open Source Project — contributions welcome!</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <a href="https://github.com" target="_blank" rel="noopener" style="color:inherit;">View on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm" novalidate>
+                    <div class="form-group">
+                        <input type="text" id="contactName" placeholder="Your Name" required autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="contactEmail" placeholder="Your Email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="contactMessage" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>AlgoViz</span>
+                </div>
+                <p>&copy; <span id="footer-year"></span> AlgoViz. All rights reserved. Built for learners.</p>
+                <div class="social-links">
+                    <a href="https://github.com/manoj-2514" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/YOUR-LINKEDIN-ID" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/YOUR-TWITTER-ID" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+    </footer>
+
+    <!-- Load shared utilities -->
+    <script src="js/utils.js?v=7"></script>
+    <script src="js/visualizer.js?v=3"></script>
+    <script src="js/algorithms.js?v=3"></script>
+    <script src="js/main.js?v=7"></script>
+    <script src="js/themeManager.js"></script>
+
+    <script>
+        // Nav toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            const menu = document.getElementById('navMenu');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            menu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for hash links on this page
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        // Footer auto year
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        // Contact form — EmailJS Integration
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name    = document.getElementById('contactName').value.trim();
+            const email   = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            if (!name || !email || !message) {
+                showToast('Please fill in all fields before sending.', 'warning');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showToast('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            const btn = this.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                .then(() => {
+                    let msg = document.getElementById('emailjs-status');
+                    if(!msg) {
+                        msg = document.createElement('div');
+                        msg.id = 'emailjs-status';
+                        msg.style.marginTop = '15px';
+                        msg.style.fontWeight = 'bold';
+                        msg.style.textAlign = 'center';
+                        this.appendChild(msg);
+                    }
+                    msg.style.color = '#28a745';
+                    msg.textContent = 'Message sent!';
+                    
+                    this.reset();
+                    btn.disabled = false;
+                    btn.textContent = 'Send Message';
+                }, (error) => {
+                    let msg = document.getElementById('emailjs-status');
+                    if(!msg) {
+                        msg = document.createElement('div');
+                        msg.id = 'emailjs-status';
+                        msg.style.marginTop = '15px';
+                        msg.style.fontWeight = 'bold';
+                        msg.style.textAlign = 'center';
+                        this.appendChild(msg);
+                    }
+                    msg.style.color = '#dc3545';
+                    msg.textContent = 'Error, try again';
+                    
+                    console.error('EmailJS Error:', error);
+                    btn.disabled = false;
+                    btn.textContent = 'Send Message';
+                });
+        });
+
+        // DSA modal close
+        document.querySelectorAll('.dsa-close').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('dsaModal').style.display = 'none';
+            });
+            btn.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    document.getElementById('dsaModal').style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

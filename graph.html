@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Algorithms — AlgoViz</title>
+    <meta name="description" content="Visualize BFS, DFS, Dijkstra, Prim and Kruskal graph algorithms with step-by-step animations and live explanations.">
+    <meta name="theme-color" content="#378ADD">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:title" content="Graph Algorithms — AlgoViz">
+    <meta property="og:description" content="Visualize BFS, DFS, Dijkstra, Prim and Kruskal graph algorithms with step-by-step animations and live explanations.">
+    <meta property="og:url" content="https://manoj-2514.github.io/algoviz/graph.html">
+    <meta property="og:image" content="https://manoj-2514.github.io/algoviz/favicon.svg">
+    <meta property="og:site_name" content="AlgoViz">
+    <meta property="og:type" content="website">
+    <script>
+        let t = localStorage.getItem('av_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Prism.js syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+</head>
+<body class="graph-page">
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>AlgoViz</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html"       class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="sorting.html"     class="nav-link">Sorting</a></li>
+                <li class="nav-item"><a href="searching.html"   class="nav-link">Searching</a></li>
+                <li class="nav-item"><a href="graph.html"       class="nav-link active">Graph</a></li>
+                <li class="nav-item"><a href="other.html"       class="nav-link">Other</a></li>
+                <li class="nav-item"><a href="index.html#learn" class="nav-link">Learn DSA</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+                    <span class="nav-bar"></span>
+                    <span class="nav-bar"></span>
+                    <span class="nav-bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Graph Algorithms Section -->
+    <section class="algorithm-page">
+        <div class="container">
+            <h1 class="page-title">Graph Algorithms</h1>
+            <p class="page-description">
+                Learn and visualize graph traversal and shortest-path algorithms with interactive animations and step-by-step explanations.
+            </p>
+
+            <!-- Algorithm Grid -->
+            <div class="algorithm-grid">
+
+                <!-- BFS -->
+                <div class="algorithm-card" data-algorithm="bfs">
+                    <div class="algorithm-header">
+                        <h3>Breadth-First Search</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>BFS explores all neighbors of a node before moving to the next level. It uses a queue and guarantees the shortest path in unweighted graphs.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(V + E)</li>
+                                <li>Average: O(V + E)</li>
+                                <li>Worst: O(V + E)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(V)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('bfs')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('bfs')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DFS -->
+                <div class="algorithm-card" data-algorithm="dfs">
+                    <div class="algorithm-header">
+                        <h3>Depth-First Search</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>DFS explores as far as possible along each branch before backtracking. It uses a stack (or recursion) and is used for cycle detection and topological sort.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(V + E)</li>
+                                <li>Average: O(V + E)</li>
+                                <li>Worst: O(V + E)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(V)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('dfs')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('dfs')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dijkstra -->
+                <div class="algorithm-card" data-algorithm="dijkstra">
+                    <div class="algorithm-header">
+                        <h3>Dijkstra's Algorithm</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Dijkstra finds the shortest path from a source node to all other nodes in a weighted graph. It greedily picks the minimum-distance unvisited node.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(V²)</li>
+                                <li>Average: O((V + E) log V)</li>
+                                <li>Worst: O(V²)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(V)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('dijkstra')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('dijkstra')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prim's -->
+                <div class="algorithm-card" data-algorithm="prim">
+                    <div class="algorithm-header">
+                        <h3>Prim's Algorithm</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Prim's algorithm finds the Minimum Spanning Tree (MST) of a weighted undirected graph by growing the MST one edge at a time from an arbitrary starting node.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(E log V)</li>
+                                <li>Average: O(E log V)</li>
+                                <li>Worst: O(V²)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(V)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('prim')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('prim')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kruskal's -->
+                <div class="algorithm-card" data-algorithm="kruskal">
+                    <div class="algorithm-header">
+                        <h3>Kruskal's Algorithm</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Kruskal's algorithm finds the MST by sorting all edges by weight and adding them one by one, skipping edges that would form a cycle, using Union-Find.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(E log E)</li>
+                                <li>Average: O(E log E)</li>
+                                <li>Worst: O(E log E)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(V)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('kruskal')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('kruskal')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithm Modal -->
+    <div id="algorithmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Graph Algorithm Visualizer</h2>
+                <span class="close" role="button" tabindex="0" aria-label="Close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Controls -->
+                <div class="algorithm-controls">
+                    <div class="control-group">
+                        <label for="nodeCount">Nodes:</label>
+                        <input type="range" id="nodeCount" min="4" max="10" value="7">
+                        <span id="nodeCountValue">7</span>
+                    </div>
+                    <div class="control-group">
+                        <label for="speed">Animation Speed:</label>
+                        <input type="range" id="speed" min="1" max="10" value="5">
+                        <span id="speedValue">5</span>
+                    </div>
+                    <div class="control-group" id="startNodeGroup">
+                        <label for="startNode">Start Node:</label>
+                        <input type="text" id="startNode" value="A" maxlength="2" style="width:50px; text-align:center; font-weight:bold;">
+                    </div>
+                    <div class="control-group" id="endNodeGroup" style="display:none;">
+                        <label for="endNode">End Node:</label>
+                        <input type="text" id="endNode" value="G" maxlength="2" style="width:50px; text-align:center; font-weight:bold;">
+                        <small style="font-size:0.75rem; color:#666;">(click node on graph)</small>
+                    </div>
+                    <div class="control-buttons">
+                        <button id="generateBtn" class="btn btn-secondary">New Graph</button>
+                        <button id="startBtn" class="btn btn-primary">Start</button>
+                        <button id="pauseBtn" class="btn btn-warning">Pause</button>
+                        <button id="resetBtn" class="btn btn-danger">Reset</button>
+                    </div>
+                </div>
+
+                <!-- Visualization Area -->
+                <div class="visualization-area" style="padding: 1rem;">
+                    <!-- Color Legend -->
+                    <div class="color-legend" id="graphLegend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#4CAF50;"></div>
+                            <span>Unvisited</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#ff9800;"></div>
+                            <span>Current</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#2196f3;"></div>
+                            <span>Visited</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#9c27b0;"></div>
+                            <span>In Queue/Stack</span>
+                        </div>
+                        <div class="legend-item" id="pathLegendItem" style="display:none;">
+                            <div class="legend-color" style="background:#e91e63;"></div>
+                            <span>Shortest Path</span>
+                        </div>
+                        <div class="legend-item" id="mstLegendItem" style="display:none;">
+                            <div class="legend-color" style="background:#e91e63;"></div>
+                            <span>MST Edge</span>
+                        </div>
+                    </div>
+
+                    <!-- Step Counter -->
+                    <div class="step-counter">
+                        <div class="counter-item">
+                            <span class="counter-label">Step:</span>
+                            <span class="counter-value" id="stepCounter">0</span>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-label">Nodes Visited:</span>
+                            <span class="counter-value" id="nodesVisited">0</span>
+                        </div>
+                        <div class="counter-item" id="distanceInfo" style="display:none;">
+                            <span class="counter-label">Total Distance:</span>
+                            <span class="counter-value" id="totalDistance">0</span>
+                        </div>
+                        <div class="counter-item" id="edgesInfo" style="display:none;">
+                            <span class="counter-label">MST Edges:</span>
+                            <span class="counter-value" id="mstEdges">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Graph Layout: Graph + Explanation side by side -->
+                    <div class="graph-layout">
+                        <!-- Left: Graph Canvas -->
+                        <div class="graph-left">
+                            <div id="visualizer" class="visualizer"></div>
+                        </div>
+
+                        <!-- Right: Distance Table + Live Explanation -->
+                        <div class="graph-right">
+                            <!-- Distance Table (for Dijkstra/Prim/Kruskal) -->
+                            <div id="distanceTable" style="display:none; margin-bottom: 1rem;">
+                                <h4 style="margin-bottom:0.5rem; color:#667eea;">
+                                    <i class="fas fa-table"></i> <span id="tableTitle">Distance Table</span>
+                                </h4>
+                                <div id="distanceTableContent" style="font-size:0.85rem; overflow-x:auto;"></div>
+                            </div>
+
+                            <!-- Queue/Stack display -->
+                            <div id="queueDisplay" style="display:none; margin-bottom:1rem;">
+                                <h4 style="margin-bottom:0.5rem; color:#667eea;">
+                                    <i class="fas fa-list"></i> <span id="queueTitle">Queue</span>
+                                </h4>
+                                <div id="queueContent" style="background:#f8f9fa; padding:0.5rem; border-radius:6px; font-family:monospace; font-size:0.85rem; min-height:30px; border: 1px solid #dee2e6;">
+                                    —
+                                </div>
+                            </div>
+
+                            <!-- Live Explanation Panel -->
+                            <div class="explanation-panel">
+                                <h4><i class="fas fa-comment-dots"></i> Live Explanation</h4>
+                                <div id="liveExplanation" class="explanation-content">
+                                    <p>Select an algorithm and click Start to see live explanations here...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theory / Code / AI Explanation Tabs -->
+                <div class="algorithm-info" style="margin-top:1rem;">
+                    <div class="info-tabs">
+                        <button class="tab-btn active" data-tab="theory">Theory</button>
+                        <button class="tab-btn" data-tab="code">Code</button>
+                        <button class="tab-btn" data-tab="explanation">AI Explanation</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="theory" class="tab-pane active">
+                            <div id="theoryContent">
+                                <p>Select an algorithm to view its theory and complexity analysis.</p>
+                            </div>
+                        </div>
+                        <div id="code" class="tab-pane">
+                            <div class="language-tabs">
+                                <button class="lang-tab active" data-lang="cpp">C++</button>
+                                <button class="lang-tab" data-lang="python">Python</button>
+                                <button class="lang-tab" data-lang="java">Java</button>
+                                <button class="lang-tab" data-lang="javascript">JavaScript</button>
+                                <button class="lang-tab" data-lang="c">C</button>
+                            </div>
+                            <div id="codeContent">
+                                <pre><code>Select an algorithm to view code implementations.</code></pre>
+                            </div>
+                        </div>
+                        <div id="explanation" class="tab-pane">
+                            <div id="explanationContent">
+                                <p>Select an algorithm and click "Explain with Example" to get step-by-step explanations.</p>
+                                <button id="explainBtn" class="btn btn-primary">Explain with Example</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>AlgoViz</span>
+                </div>
+                <p>&copy; <span class="copyright-year">2024</span> AlgoViz. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js?v=6"></script>
+    <script src="js/visualizer.js?v=6"></script>
+    <script src="js/algorithms.js?v=6"></script>
+    <script src="js/graph.js?v=6"></script>
+    <script src="js/themeManager.js"></script>
+    <!-- Prism.js syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script>
+        // Fix copyright year
+        document.querySelectorAll('.copyright-year').forEach(el => el.textContent = new Date().getFullYear());
+
+        // Mobile nav toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            const menu = document.getElementById('navMenu');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            menu.classList.toggle('active');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            const modal = document.getElementById('algorithmModal');
+            const isOpen = modal && modal.style.display !== 'none';
+            if (!isOpen) return;
+            switch (e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    const pauseBtn = document.getElementById('pauseBtn');
+                    if (pauseBtn) pauseBtn.click();
+                    break;
+                case 'KeyR':
+                    const resetBtn = document.getElementById('resetBtn');
+                    if (resetBtn) resetBtn.click();
+                    break;
+                case 'KeyN':
+                    const genBtn = document.getElementById('generateBtn');
+                    if (genBtn) genBtn.click();
+                    break;
+                case 'Escape':
+                    const closeBtn = document.querySelector('.modal .close');
+                    if (closeBtn) closeBtn.click();
+                    break;
+                case 'Digit1': case 'Digit2': case 'Digit3': case 'Digit4': case 'Digit5':
+                case 'Digit6': case 'Digit7': case 'Digit8': case 'Digit9':
+                    const speed = document.getElementById('speed');
+                    const sv   = document.getElementById('speedValue');
+                    if (speed) { speed.value = e.code.replace('Digit',''); if(sv) sv.textContent = speed.value; speed.dispatchEvent(new Event('input')); }
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

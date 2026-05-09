@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Test</title>
+    <style>
+        .visualizer-bar { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); transition: all 0.3s ease; }
+        .visualizer-bar.comparing { background: #ff9800; }
+        .visualizer-bar.sorted { background: #4caf50; }
+        .visualizer { display: flex; align-items: flex-end; gap: 2px; height: 300px; }
+    </style>
+</head>
+<body>
+    <h1>Bubble Sort Debug Test</h1>
+    <div id="visualizer" class="visualizer"></div>
+    <br>
+    <button onclick="testBubbleSort()">Test Bubble Sort</button>
+    <button onclick="testSpeed()">Change Speed</button>
+    <div id="speed">5</div>
+
+    <script src="js/visualizer.js"></script>
+    <script>
+        let testArray = [5, 3, 8, 1, 2];
+        let viz = new Visualizer('visualizer');
+        
+        function testBubbleSort() {
+            console.log('Testing bubble sort...');
+            viz.initializeArray(testArray);
+            bubbleSortTest();
+        }
+        
+        async function bubbleSortTest() {
+            const arr = [...testArray];
+            const n = arr.length;
+            
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    viz.highlightBars([j, j + 1], 'comparing');
+                    await window.AlgoViz.delay(500);
+                    
+                    if (arr[j] > arr[j + 1]) {
+                        viz.swapBars(j, j + 1);
+                        await window.AlgoViz.delay(500);
+                    }
+                    
+                    viz.unhighlightBars([j, j + 1]);
+                }
+                viz.highlightBars([n - i - 1], 'sorted');
+            }
+            viz.highlightBars([0], 'sorted');
+        }
+        
+        function testSpeed() {
+            window.AlgoViz.animationSpeed = 10;
+            document.getElementById('speed').textContent = '10';
+        }
+    </script>
+</body>
+</html>

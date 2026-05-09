@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Algorithms — AlgoViz</title>
+    <meta name="description" content="Visualize Kadane's, Floyd-Warshall, KMP and Rabin-Karp algorithms with step-by-step animations and live explanations.">
+    <meta name="theme-color" content="#378ADD">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:title" content="Other Algorithms — AlgoViz">
+    <meta property="og:description" content="Visualize Kadane's, Floyd-Warshall, KMP and Rabin-Karp algorithms with step-by-step animations and live explanations.">
+    <meta property="og:url" content="https://manoj-2514.github.io/algoviz/other.html">
+    <meta property="og:image" content="https://manoj-2514.github.io/algoviz/favicon.svg">
+    <meta property="og:site_name" content="AlgoViz">
+    <meta property="og:type" content="website">
+    <script>
+        let t = localStorage.getItem('av_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Prism.js syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+</head>
+<body class="other-page">
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>AlgoViz</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html"       class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="sorting.html"     class="nav-link">Sorting</a></li>
+                <li class="nav-item"><a href="searching.html"   class="nav-link">Searching</a></li>
+                <li class="nav-item"><a href="graph.html"       class="nav-link">Graph</a></li>
+                <li class="nav-item"><a href="other.html"       class="nav-link active">Other</a></li>
+                <li class="nav-item"><a href="index.html#learn" class="nav-link">Learn DSA</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+                    <span class="nav-bar"></span>
+                    <span class="nav-bar"></span>
+                    <span class="nav-bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Other Algorithms Section -->
+    <section class="algorithm-page">
+        <div class="container">
+            <h1 class="page-title">Other Important Algorithms</h1>
+            <p class="page-description">
+                Learn and visualize various important algorithms including String Matching, Dynamic Programming, and Graph matrices.
+            </p>
+
+            <!-- Algorithm Grid -->
+            <div class="algorithm-grid">
+                <!-- Kadane -->
+                <div class="algorithm-card" data-algorithm="kadane">
+                    <div class="algorithm-header">
+                        <h3>Kadane's Algorithm</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Kadane's algorithm finds the maximum subarray sum in a one-dimensional array using Dynamic Programming.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(n)</li>
+                                <li>Average: O(n)</li>
+                                <li>Worst: O(n)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(1)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="window.openAlgorithmModal('kadane')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('kadane')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floyd Warshall -->
+                <div class="algorithm-card" data-algorithm="floyd-warshall">
+                    <div class="algorithm-header">
+                        <h3>Floyd Warshall Algorithm</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Floyd Warshall algorithm finds the shortest paths between all pairs of vertices in a weighted graph using Dynamic Programming.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(n³)</li>
+                                <li>Average: O(n³)</li>
+                                <li>Worst: O(n³)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(n²)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="window.openAlgorithmModal('floyd-warshall')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('floyd-warshall')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warshall -->
+                <div class="algorithm-card" data-algorithm="warshall">
+                    <div class="algorithm-header">
+                        <h3>Warshall's Algorithm</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Warshall's algorithm computes the transitive closure of a directed graph, determining if there is a path between any two vertices.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(n³)</li>
+                                <li>Average: O(n³)</li>
+                                <li>Worst: O(n³)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(n²)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="window.openAlgorithmModal('warshall')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('warshall')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KMP -->
+                <div class="algorithm-card" data-algorithm="kmp">
+                    <div class="algorithm-header">
+                        <h3>KMP String Matching</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-font"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>KMP algorithm uses a partial match table to avoid unnecessary character comparisons when searching for a substring.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(n + m)</li>
+                                <li>Average: O(n + m)</li>
+                                <li>Worst: O(n + m)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(m)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="window.openAlgorithmModal('kmp')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('kmp')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Rabin Karp -->
+                <div class="algorithm-card" data-algorithm="rabin-karp">
+                    <div class="algorithm-header">
+                        <h3>Rabin Karp Algorithm</h3>
+                        <div class="algorithm-icon">
+                            <i class="fas fa-hashtag"></i>
+                        </div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Rabin Karp algorithm is a string matching algorithm that uses a rolling hash function to quickly filter out mismatches.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul>
+                                <li>Best: O(n + m)</li>
+                                <li>Average: O(n + m)</li>
+                                <li>Worst: O(nm)</li>
+                            </ul>
+                            <h4>Space Complexity</h4>
+                            <ul>
+                                <li>O(1)</li>
+                            </ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="window.openAlgorithmModal('rabin-karp')">Visualize</button>
+                            <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('rabin-karp')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithm Modal -->
+    <div id="algorithmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Algorithm Visualizer</h2>
+                <span class="close" role="button" tabindex="0" aria-label="Close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Dynamic Controls -->
+                <div class="algorithm-controls" id="otherControls">
+                    <!-- Specific controls will be inserted here by JS -->
+                </div>
+
+                <!-- Visualization Area -->
+                <div class="visualization-area" style="padding: 1rem;">
+                    <div class="color-legend" id="otherLegend">
+                        <!-- Legend added by JS -->
+                    </div>
+
+                    <div class="step-counter">
+                        <div class="counter-item">
+                            <span class="counter-label">Step:</span>
+                            <span class="counter-value" id="stepCounter">0</span>
+                        </div>
+                        <div class="counter-item" id="extraCounterItem" style="display:none;">
+                            <span class="counter-label" id="extraCounterLabel">Value:</span>
+                            <span class="counter-value" id="extraCounterValue">0</span>
+                        </div>
+                    </div>
+
+                    <div class="graph-layout">
+                        <!-- Left Canvas -->
+                        <div class="graph-left">
+                            <div id="visualizer" class="visualizer" style="height:400px;display:flex;align-items:center;justify-content:center;"></div>
+                        </div>
+
+                        <!-- Right Graph panel -->
+                        <div class="graph-right">
+                            <div id="distanceTable" style="display:none; margin-bottom: 1rem;">
+                                <h4 style="margin-bottom:0.5rem; color:#667eea;">
+                                    <i class="fas fa-table"></i> <span id="tableTitle">Matrix</span>
+                                </h4>
+                                <div id="distanceTableContent" style="font-size:0.85rem; overflow-x:auto;"></div>
+                            </div>
+                            
+                            <!-- Variables panel for info like LPS array or Hash value -->
+                            <div id="variablesDisplay" style="display:none; margin-bottom:1rem;">
+                                <h4 style="margin-bottom:0.5rem; color:#667eea;">
+                                    <i class="fas fa-list"></i> <span id="variablesTitle">Variables</span>
+                                </h4>
+                                <div id="variablesContent" style="background:#f8f9fa; padding:0.5rem; border-radius:6px; font-family:monospace; font-size:0.85rem; min-height:30px; border: 1px solid #dee2e6;">
+                                    —
+                                </div>
+                            </div>
+
+                            <div class="explanation-panel">
+                                <h4><i class="fas fa-comment-dots"></i> Live Explanation</h4>
+                                <div id="liveExplanation" class="explanation-content">
+                                    <p>Select an algorithm and click Start to see live explanations here...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="algorithm-info" style="margin-top:1rem;">
+                    <div class="info-tabs">
+                        <button class="tab-btn active" data-tab="theory">Theory</button>
+                        <button class="tab-btn" data-tab="code">Code</button>
+                        <button class="tab-btn" data-tab="explanation">AI Explanation</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="theory" class="tab-pane active">
+                            <div id="theoryContent"></div>
+                        </div>
+                        <div id="code" class="tab-pane">
+                            <div class="language-tabs">
+                                <button class="lang-tab active" data-lang="cpp">C++</button>
+                                <button class="lang-tab" data-lang="python">Python</button>
+                                <button class="lang-tab" data-lang="java">Java</button>
+                                <button class="lang-tab" data-lang="javascript">JavaScript</button>
+                                <button class="lang-tab" data-lang="c">C</button>
+                            </div>
+                            <div id="codeContent"><pre><code></code></pre></div>
+                        </div>
+                        <div id="explanation" class="tab-pane">
+                            <div id="explanationContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>AlgoViz</span>
+                </div>
+                <p>&copy; <span class="copyright-year">2024</span> AlgoViz. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js?v=6"></script>
+    <script src="js/visualizer.js?v=6"></script>
+    <script src="js/other.js?v=6"></script>
+    <script src="js/themeManager.js"></script>
+    <!-- Prism.js syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script>
+        // Fix copyright year
+        document.querySelectorAll('.copyright-year').forEach(el => el.textContent = new Date().getFullYear());
+
+        // Mobile nav toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            const menu = document.getElementById('navMenu');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            menu.classList.toggle('active');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            const modal = document.getElementById('algorithmModal');
+            const isOpen = modal && modal.style.display !== 'none';
+            if (!isOpen) return;
+            switch (e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    const pauseBtn = document.getElementById('pauseBtn');
+                    if (pauseBtn) pauseBtn.click();
+                    break;
+                case 'KeyR':
+                    window.OtherAnim.isAnimating = false;
+                    window.OtherAnim.isPaused = false;
+                    if (typeof resetVis === 'function') resetVis();
+                    break;
+                case 'KeyN':
+                    if (typeof resetVis === 'function') resetVis();
+                    break;
+                case 'Escape':
+                    const closeBtn = document.querySelector('.modal .close');
+                    if (closeBtn) closeBtn.click();
+                    break;
+                case 'Digit1': case 'Digit2': case 'Digit3': case 'Digit4': case 'Digit5':
+                case 'Digit6': case 'Digit7': case 'Digit8': case 'Digit9':
+                    const speed = document.getElementById('speed');
+                    const sv   = document.getElementById('speedValue');
+                    if (speed) { speed.value = e.code.replace('Digit',''); if(sv) sv.textContent = speed.value; speed.dispatchEvent(new Event('input')); }
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

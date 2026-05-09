@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithms — AlgoViz</title>
+    <meta name="description" content="Visualize and learn sorting algorithms: Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, Quick Sort, and Heap Sort with step-by-step animations.">
+    <meta name="theme-color" content="#378ADD">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:title" content="Sorting Algorithms — AlgoViz">
+    <meta property="og:description" content="Visualize and learn sorting algorithms: Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, Quick Sort, and Heap Sort with step-by-step animations.">
+    <meta property="og:url" content="https://manoj-2514.github.io/algoviz/sorting.html">
+    <meta property="og:image" content="https://manoj-2514.github.io/algoviz/favicon.svg">
+    <meta property="og:site_name" content="AlgoViz">
+    <meta property="og:type" content="website">
+    <script>
+        let t = localStorage.getItem('av_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Prism.js syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>AlgoViz</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html"       class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="sorting.html"     class="nav-link active">Sorting</a></li>
+                <li class="nav-item"><a href="searching.html"   class="nav-link">Searching</a></li>
+                <li class="nav-item"><a href="graph.html"       class="nav-link">Graph</a></li>
+                <li class="nav-item"><a href="other.html"       class="nav-link">Other</a></li>
+                <li class="nav-item"><a href="index.html#learn" class="nav-link">Learn DSA</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+                    <span class="nav-bar"></span>
+                    <span class="nav-bar"></span>
+                    <span class="nav-bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sorting Algorithms Section -->
+    <section class="algorithm-page">
+        <div class="container">
+            <h1 class="page-title">Sorting Algorithms</h1>
+            <p class="page-description">
+                Learn and visualize various sorting algorithms with step-by-step animations and detailed explanations.
+            </p>
+
+            <!-- Algorithm Grid -->
+            <div class="algorithm-grid">
+                <!-- Bubble Sort -->
+                <div class="algorithm-card" data-algorithm="bubble-sort">
+                    <div class="algorithm-header">
+                        <h3>Bubble Sort</h3>
+                        <div class="algorithm-icon"><i class="fas fa-sort"></i></div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them if in the wrong order.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul><li>Best: O(n)</li><li>Average: O(n²)</li><li>Worst: O(n²)</li></ul>
+                            <h4>Space Complexity</h4>
+                            <ul><li>O(1)</li></ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('bubble-sort')" data-algo="bubble-sort">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('bubble-sort')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selection Sort -->
+                <div class="algorithm-card" data-algorithm="selection-sort">
+                    <div class="algorithm-header">
+                        <h3>Selection Sort</h3>
+                        <div class="algorithm-icon"><i class="fas fa-sort"></i></div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Selection Sort divides the input into sorted and unsorted sublists, repeatedly selecting the minimum from the unsorted part.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul><li>Best: O(n²)</li><li>Average: O(n²)</li><li>Worst: O(n²)</li></ul>
+                            <h4>Space Complexity</h4>
+                            <ul><li>O(1)</li></ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('selection-sort')" data-algo="selection-sort">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('selection-sort')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insertion Sort -->
+                <div class="algorithm-card" data-algorithm="insertion-sort">
+                    <div class="algorithm-header">
+                        <h3>Insertion Sort</h3>
+                        <div class="algorithm-icon"><i class="fas fa-sort"></i></div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Insertion Sort builds the final sorted array one item at a time by inserting each element into its proper position.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul><li>Best: O(n)</li><li>Average: O(n²)</li><li>Worst: O(n²)</li></ul>
+                            <h4>Space Complexity</h4>
+                            <ul><li>O(1)</li></ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('insertion-sort')" data-algo="insertion-sort">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('insertion-sort')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Merge Sort -->
+                <div class="algorithm-card" data-algorithm="merge-sort">
+                    <div class="algorithm-header">
+                        <h3>Merge Sort</h3>
+                        <div class="algorithm-icon"><i class="fas fa-sort"></i></div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Merge Sort is a divide and conquer algorithm that recursively splits the array and merges sorted halves.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul><li>Best: O(n log n)</li><li>Average: O(n log n)</li><li>Worst: O(n log n)</li></ul>
+                            <h4>Space Complexity</h4>
+                            <ul><li>O(n)</li></ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('merge-sort')" data-algo="merge-sort">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('merge-sort')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Sort -->
+                <div class="algorithm-card" data-algorithm="quick-sort">
+                    <div class="algorithm-header">
+                        <h3>Quick Sort</h3>
+                        <div class="algorithm-icon"><i class="fas fa-sort"></i></div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Quick Sort picks a pivot element and partitions the array around it, then recursively sorts the partitions.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul><li>Best: O(n log n)</li><li>Average: O(n log n)</li><li>Worst: O(n²)</li></ul>
+                            <h4>Space Complexity</h4>
+                            <ul><li>O(log n)</li></ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('quick-sort')" data-algo="quick-sort">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('quick-sort')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Heap Sort -->
+                <div class="algorithm-card" data-algorithm="heap-sort">
+                    <div class="algorithm-header">
+                        <h3>Heap Sort</h3>
+                        <div class="algorithm-icon"><i class="fas fa-sort"></i></div>
+                    </div>
+                    <div class="algorithm-content">
+                        <div class="algorithm-description">
+                            <p>Heap Sort uses a binary heap data structure, building a max-heap and repeatedly extracting the maximum.</p>
+                        </div>
+                        <div class="algorithm-complexity">
+                            <h4>Time Complexity</h4>
+                            <ul><li>Best: O(n log n)</li><li>Average: O(n log n)</li><li>Worst: O(n log n)</li></ul>
+                            <h4>Space Complexity</h4>
+                            <ul><li>O(1)</li></ul>
+                        </div>
+                        <div class="algorithm-actions">
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('heap-sort')" data-algo="heap-sort">Visualize</button>
+                            <button class="btn btn-secondary" onclick="showAlgorithmTheory('heap-sort')">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithm Modal -->
+    <div id="algorithmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Algorithm Visualizer</h2>
+                <span class="close" role="button" tabindex="0" aria-label="Close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="algorithm-controls">
+                    <div class="control-group">
+                        <label for="arraySize">Array Size:</label>
+                        <input type="range" id="arraySize" min="5" max="50" value="20">
+                        <span id="arraySizeValue">20</span>
+                    </div>
+                    <div class="control-group">
+                        <label for="speed">Animation Speed:</label>
+                        <input type="range" id="speed" min="1" max="10" value="5">
+                        <span id="speedValue">5</span>
+                    </div>
+                    <div class="control-buttons">
+                        <button id="generateBtn" class="btn btn-secondary">Generate New Array</button>
+                        <button id="startBtn" class="btn btn-primary">Start</button>
+                        <button id="pauseBtn" class="btn btn-warning">Pause</button>
+                        <button id="resetBtn" class="btn btn-danger">Reset</button>
+                    </div>
+                    <!-- Custom array input -->
+                    <div class="custom-input-group">
+                        <label for="customArrayInput"><i class="fas fa-pencil-alt"></i> Custom:</label>
+                        <input type="text" id="customArrayInput" placeholder="e.g. 5,3,8,1,9,2" maxlength="60">
+                        <button id="useCustomBtn" type="button">Use Custom</button>
+                    </div>
+                </div>
+                <div class="visualization-area">
+                    <!-- Color Legend -->
+                    <div class="color-legend">
+                        <div class="legend-item"><div class="legend-color legend-comparing"></div><span>Comparing</span></div>
+                        <div class="legend-item"><div class="legend-color legend-swapping"></div><span>Swapping</span></div>
+                        <div class="legend-item"><div class="legend-color legend-sorted"></div><span>Sorted</span></div>
+                        <div class="legend-item"><div class="legend-color legend-pivot"></div><span>Pivot</span></div>
+                    </div>
+                    <!-- Step Counter -->
+                    <div class="step-counter">
+                        <div class="counter-item"><span class="counter-label">Step:</span><span class="counter-value" id="stepCounter">0</span></div>
+                        <div class="counter-item"><span class="counter-label">Comparisons:</span><span class="counter-value" id="comparisons">0</span></div>
+                        <div class="counter-item"><span class="counter-label">Swaps:</span><span class="counter-value" id="swaps">0</span></div>
+                    </div>
+                    <div class="visualization-layout">
+                        <div class="visualization-graph">
+                            <div id="visualizer" class="visualizer"></div>
+                        </div>
+                        <div class="explanation-panel">
+                            <h4>Live Explanation</h4>
+                            <div id="liveExplanation" class="explanation-content">
+                                <p>Start an algorithm to see live explanations here...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="algorithm-info">
+                    <div class="info-tabs">
+                        <button class="tab-btn active" data-tab="theory">Theory</button>
+                        <button class="tab-btn" data-tab="code">Code</button>
+                        <button class="tab-btn" data-tab="explanation">AI Explanation</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="theory" class="tab-pane active">
+                            <div id="theoryContent"><p>Select an algorithm to view its theory and complexity analysis.</p></div>
+                        </div>
+                        <div id="code" class="tab-pane">
+                            <div class="language-tabs">
+                                <button class="lang-tab active" data-lang="cpp">C++</button>
+                                <button class="lang-tab" data-lang="python">Python</button>
+                                <button class="lang-tab" data-lang="java">Java</button>
+                                <button class="lang-tab" data-lang="javascript">JavaScript</button>
+                                <button class="lang-tab" data-lang="c">C</button>
+                            </div>
+                            <div id="codeContent"><pre><code>Select an algorithm to view code implementations.</code></pre></div>
+                        </div>
+                        <div id="explanation" class="tab-pane">
+                            <div id="explanationContent">
+                                <p>Select an algorithm and click "Explain with Example" to get step-by-step explanations.</p>
+                                <button id="explainBtn" class="btn btn-primary">Explain with Example</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo"><i class="fas fa-chart-line"></i><span>AlgoViz</span></div>
+                <p>&copy; <span class="copyright-year">2024</span> AlgoViz. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js?v=6"></script>
+    <script src="js/visualizer.js?v=6"></script>
+    <script src="js/algorithms.js?v=6"></script>
+    <script src="js/sorting.js?v=6"></script>
+    <script src="js/themeManager.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script>
+        // Fix copyright year
+        document.querySelectorAll('.copyright-year').forEach(el => el.textContent = new Date().getFullYear());
+
+        // Mobile nav toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            const menu = document.getElementById('navMenu');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            menu.classList.toggle('active');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Skip when typing in an input field
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            const modal = document.getElementById('algorithmModal');
+            const isOpen = modal && modal.style.display !== 'none';
+            if (!isOpen) return;
+            switch (e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    const pauseBtn = document.getElementById('pauseBtn');
+                    if (pauseBtn) pauseBtn.click();
+                    break;
+                case 'KeyR':
+                    const resetBtn = document.getElementById('resetBtn');
+                    if (resetBtn) resetBtn.click();
+                    break;
+                case 'KeyN':
+                    const genBtn = document.getElementById('generateBtn');
+                    if (genBtn) genBtn.click();
+                    break;
+                case 'Escape':
+                    const closeBtn = document.querySelector('.modal .close');
+                    if (closeBtn) closeBtn.click();
+                    break;
+                case 'Digit1': case 'Digit2': case 'Digit3': case 'Digit4': case 'Digit5':
+                case 'Digit6': case 'Digit7': case 'Digit8': case 'Digit9':
+                    const speed = document.getElementById('speed');
+                    const sv   = document.getElementById('speedValue');
+                    if (speed) { speed.value = e.code.replace('Digit',''); if(sv) sv.textContent = speed.value; speed.dispatchEvent(new Event('input')); }
+                    break;
+            }
+        });
+    </script>
+    <script src="js/progressTracker.js"></script>
+</body>
+</html>
