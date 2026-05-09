@@ -135,6 +135,12 @@
                         <button id="startBtn" class="btn btn-primary">Start</button>
                         <button id="pauseBtn" class="btn btn-warning">Pause</button>
                         <button id="resetBtn" class="btn btn-danger">Reset</button>
+                        <button id="share-btn-search" 
+                                class="btn" 
+                                onclick="ShareURLSearch.copyLink()" 
+                                title="Share this visualization">
+                          🔗 Share
+                        </button>
                     </div>
                     <!-- Custom array input -->
                     <div class="custom-input-group">
@@ -269,6 +275,7 @@
             }
         });
     </script>
+    <script src="js/shareURLSearch.js"></script>
     <script src="js/progressTracker.js"></script>
 </body>
 </html>

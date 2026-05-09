@@ -126,8 +126,9 @@ function renderGraphSVG(highlightNodes = {}, highlightEdges = {}) {
     svg.appendChild(defs);
 
     const nodeColorMap = {
-        unvisited: '#4CAF50', current: '#ff9800',
+        unvisited: '#6c757d', current: '#f44336',
         visited: '#2196f3', queued: '#9c27b0',
+        stack: '#ff9800', complete: '#4caf50',
         path: '#e91e63', mst: '#e91e63', start: '#ff5722'
     };
     const edgeColorMap = {
@@ -230,6 +231,7 @@ function resetStats() {
     document.getElementById('edgesInfo').style.display = 'none';
     document.getElementById('totalDistance').textContent = '0';
     document.getElementById('mstEdges').textContent = '0';
+    if (window.TraversalPath) window.TraversalPath.clear();
 }
 
 function showDistanceTable(show, title='Distance Table') {
@@ -316,6 +318,7 @@ function startVisualization() {
     window.GraphAnim.isPaused = false;
     window.stepCount = 0;
     window.visitCount = 0;
+    if (window.TraversalPath) window.TraversalPath.init(currentAlgorithm);
     clearLog();
     generateBtn.disabled = true;
     startBtn.disabled = true;
@@ -389,6 +392,7 @@ async function runBFS(start) {
             updateCounters();
 
             nodeStates[node] = 'visited';
+            if (window.TraversalPath) window.TraversalPath.addNode(node);
             log(`Step ${window.stepCount}: Visiting node ${node}`, 'comparison');
             renderGraphSVG(nodeStates, edgeStates);
 
@@ -410,6 +414,11 @@ async function runBFS(start) {
             await waitStep();
         }
 
+        // Mark all visited nodes as complete (green)
+        for (const node of visited) {
+            nodeStates[node] = 'complete';
+        }
+        renderGraphSVG(nodeStates, edgeStates);
         log('✅ BFS complete! All reachable nodes visited.', 'algorithm');
     } catch(e) {
         if (e && e.message !== 'reset') console.error('[BFS Error]', e);
@@ -436,6 +445,7 @@ async function runDFS(start) {
 
             if (visited.has(node)) continue;
             visited.add(node);
+            if (window.TraversalPath) window.TraversalPath.addNode(node);
 
             window.stepCount++;
             window.visitCount++;
@@ -461,10 +471,23 @@ async function runDFS(start) {
             for (const { node: neighbour } of neighbours) {
                 if (!visited.has(neighbour)) {
                     stack.push({ node: neighbour, parent: node });
+                    // Mark node as "in stack" so it shows orange
+                    if (!nodeStates[neighbour] || nodeStates[neighbour] === 'unvisited') {
+                        nodeStates[neighbour] = 'stack';
+                    }
                     log(`  → Push ${neighbour} onto stack`, 'info');
                 }
             }
+            renderGraphSVG(nodeStates, edgeStates);
+            setQueueDisplay('Stack', stack.length
+                ? `[${stack.map(s => s.node).reverse().join(', ')}]`
+                : '(empty)');
         }
+        // Mark all visited nodes as complete (green)
+        for (const node of visited) {
+            nodeStates[node] = 'complete';
+        }
+        renderGraphSVG(nodeStates, edgeStates);
         log('✅ DFS complete! All reachable nodes visited.', 'algorithm');
     } catch(e) {
         if (e && e.message !== 'reset') console.error('[DFS Error]', e);
@@ -526,6 +549,7 @@ async function runDijkstra(start, end) {
                 }
                 document.getElementById('totalDistance').textContent = dist[end];
                 renderGraphSVG(nodeStates, edgeStates);
+                if (window.TraversalPath) window.TraversalPath.setShortestPaths(dist, start);
                 log(`✅ Shortest path to ${end}: ${dist[end]}`, 'algorithm');
                 break;
             }
@@ -543,6 +567,7 @@ async function runDijkstra(start, end) {
             }
             renderDistanceTable(dist, prev, nodes);
         }
+        if (window.TraversalPath) window.TraversalPath.setShortestPaths(dist, start);
         log('✅ Dijkstra complete!', 'algorithm');
     } catch(e) {
         if (e && e.message !== 'reset') console.error('[Dijkstra Error]', e);
@@ -580,6 +605,7 @@ async function runPrim(start) {
             if (!minEdge) break;
 
             inMST.add(minEdge.to);
+            if (window.TraversalPath) window.TraversalPath.addEdge(minEdge.from, minEdge.to, minEdge.weight);
             nodeStates[minEdge.to] = 'visited';
             const ek = [minEdge.from, minEdge.to].sort().join('-');
             edgeStates[ek] = 'mst';
@@ -644,6 +670,7 @@ async function runKruskal() {
 
             if (uf.union(edge.from, edge.to)) {
                 edge.inMST = true;
+                if (window.TraversalPath) window.TraversalPath.addEdge(edge.from, edge.to, edge.weight);
                 mstCount++;
                 window.stepCount++;
                 window.visitCount++;

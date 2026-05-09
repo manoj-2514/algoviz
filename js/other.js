@@ -325,7 +325,7 @@ function renderFWMatrix(dist, n, k=-1, i=-1, j=-1, highlightIJ=false, updated=fa
     for(let r=0; r<n; r++) {
         html += `<tr><th style="padding:10px;border-right:2px solid #ccc;">V${r}</th>`;
         for(let c=0; c<n; c++) {
-            let val = dist[r][c] === Infinity ? '∞' : dist[r][c];
+            let val = (dist[r][c] === null || dist[r][c] === Infinity) ? '∞' : dist[r][c];
             let bg = 'white', color = '#333';
             
             if (r === k || c === k) { bg = '#fff3e0'; } // Intermediate k
@@ -508,13 +508,13 @@ async function runFloydWarshall() {
                 updateCounters();
                 
                 renderFWMatrix(dist, n, k, i, j, true, false);
-                const dIK = dist[i][k] === Infinity ? '∞' : dist[i][k];
-                const dKJ = dist[k][j] === Infinity ? '∞' : dist[k][j];
-                const current = dist[i][j] === Infinity ? '∞' : dist[i][j];
+                const dIK = (dist[i][k] === null || dist[i][k] === Infinity) ? '∞' : dist[i][k];
+                const dKJ = (dist[k][j] === null || dist[k][j] === Infinity) ? '∞' : dist[k][j];
+                const current = (dist[i][j] === null || dist[i][j] === Infinity) ? '∞' : dist[i][j];
                 
                 log(`Check path V${i}→V${j} via V${k}. Current: ${current}, Via k: ${dIK}+${dKJ}`, 'info');
                 
-                if (dist[i][k] !== Infinity && dist[k][j] !== Infinity && dist[i][k] + dist[k][j] < dist[i][j]) {
+                if (dist[i][k] !== null && dist[i][k] !== Infinity && dist[k][j] !== null && dist[k][j] !== Infinity && dist[i][k] + dist[k][j] < dist[i][j]) {
                     dist[i][j] = dist[i][k] + dist[k][j];
                     log(`  → Found shorter path: ${dist[i][j]}`, 'comparison');
                     renderFWMatrix(dist, n, k, i, j, true, true);

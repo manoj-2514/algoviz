@@ -256,6 +256,12 @@
                         <button id="startBtn" class="btn btn-primary">Start</button>
                         <button id="pauseBtn" class="btn btn-warning">Pause</button>
                         <button id="resetBtn" class="btn btn-danger">Reset</button>
+                        <button id="share-btn-graph" 
+                                class="btn" 
+                                onclick="ShareURLGraph.copyLink()" 
+                                title="Share this visualization">
+                          🔗 Share
+                        </button>
                     </div>
                 </div>
 
@@ -334,6 +340,14 @@
                                 <div id="queueContent" style="background:#f8f9fa; padding:0.5rem; border-radius:6px; font-family:monospace; font-size:0.85rem; min-height:30px; border: 1px solid #dee2e6;">
                                     —
                                 </div>
+                            </div>
+
+                            <!-- Traversal Path Panel -->
+                            <div id="traversal-path-panel" style="display:none; margin-bottom:1rem;">
+                                <h4 style="margin-bottom:0.5rem; color:#667eea;">
+                                    <i class="fas fa-route"></i> <span id="traversal-path-label">Traversal Order</span>
+                                </h4>
+                                <div id="traversal-path-display"></div>
                             </div>
 
                             <!-- Live Explanation Panel -->
@@ -461,6 +475,107 @@
             }
         });
     </script>
+    <script>
+    // ─── Traversal Path Display (addon – does NOT modify graph.js) ────
+    window.TraversalPath = (function() {
+        var _nodes = [];
+        var _edges = [];
+        var _algo  = '';
+
+        var LABELS = {
+            'bfs':      'BFS Traversal Order',
+            'dfs':      'DFS Traversal Order',
+            'dijkstra': 'Shortest Paths from Source',
+            'prim':     'MST Edges Added',
+            'kruskal':  'MST Edges (Kruskal)'
+        };
+
+        function _panel()   { return document.getElementById('traversal-path-panel'); }
+        function _display() { return document.getElementById('traversal-path-display'); }
+        function _label()   { return document.getElementById('traversal-path-label'); }
+
+        function init(algoName) {
+            _algo  = algoName;
+            _nodes = [];
+            _edges = [];
+            var p = _panel(), d = _display(), l = _label();
+            if (p) p.style.display = '';
+            if (d) d.innerHTML = '';
+            if (l) l.textContent = LABELS[algoName] || 'Traversal Order';
+        }
+
+        function addNode(nodeId) {
+            _nodes.push(nodeId);
+            _renderNodes();
+        }
+
+        function addEdge(from, to, weight) {
+            _edges.push({ from: from, to: to, weight: weight });
+            _renderEdges();
+        }
+
+        function setShortestPaths(distMap, sourceNode) {
+            var d = _display();
+            if (!d) return;
+            var html = '';
+            var keys = Object.keys(distMap).sort();
+            for (var i = 0; i < keys.length; i++) {
+                var node = keys[i];
+                if (node === sourceNode) continue;
+                var dist = distMap[node];
+                var val = (dist === Infinity || dist === null) ? '∞' : dist;
+                html += '<span class="path-dist">'
+                      +   '<span class="dist-label">' + sourceNode + '→' + node + ':</span>'
+                      +   '<span class="dist-value">' + val + '</span>'
+                      + '</span>';
+            }
+            d.innerHTML = html;
+        }
+
+        function clear() {
+            _nodes = [];
+            _edges = [];
+            _algo  = '';
+            var p = _panel(), d = _display();
+            if (p) p.style.display = 'none';
+            if (d) d.innerHTML = '';
+        }
+
+        function _renderNodes() {
+            var d = _display();
+            if (!d) return;
+            var html = '';
+            for (var i = 0; i < _nodes.length; i++) {
+                if (i > 0) html += '<span class="path-arrow">→</span>';
+                html += '<span class="path-node">' + _nodes[i] + '</span>';
+            }
+            d.innerHTML = html;
+            d.scrollTop = d.scrollHeight;
+        }
+
+        function _renderEdges() {
+            var d = _display();
+            if (!d) return;
+            var html = '';
+            for (var i = 0; i < _edges.length; i++) {
+                if (i > 0) html += '<span class="path-arrow">→</span>';
+                var e = _edges[i];
+                html += '<span class="path-edge">' + e.from + '–' + e.to + '(' + e.weight + ')</span>';
+            }
+            d.innerHTML = html;
+            d.scrollTop = d.scrollHeight;
+        }
+
+        return {
+            init: init,
+            addNode: addNode,
+            addEdge: addEdge,
+            setShortestPaths: setShortestPaths,
+            clear: clear
+        };
+    })();
+    </script>
+    <script src="js/shareURLGraph.js"></script>
     <script src="js/progressTracker.js"></script>
 </body>
 </html>

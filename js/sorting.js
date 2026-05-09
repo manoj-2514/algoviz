@@ -2407,12 +2407,20 @@ async function merge(arr, visualizer, left, mid, right) {
     await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
 }
 
-// Quick Sort implementation
 async function quickSort(arr, visualizer, low, high) {
     if (low < high) {
         const pi = await partition(arr, visualizer, low, high);
         await quickSort(arr, visualizer, low, pi - 1);
         await quickSort(arr, visualizer, pi + 1, high);
+    }
+
+    // After the top-level call completes, mark ALL bars as sorted
+    if (low === 0 && high === arr.length - 1) {
+        for (let i = 0; i < arr.length; i++) {
+            visualizer.highlightBars([i], 'sorted');
+        }
+        explainAlgorithmComplete();
+        console.log('Quick sort completed');
     }
 }
 
