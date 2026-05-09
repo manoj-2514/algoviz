@@ -76,7 +76,7 @@
                             <ul><li>O(1)</li></ul>
                         </div>
                         <div class="algorithm-actions">
-                            <button class="btn btn-primary" onclick="openAlgorithmModal('linear-search')">Visualize</button>
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('linear-search')" data-algo="linear-search">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('linear-search')">Learn More</button>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                             <ul><li>O(1)</li></ul>
                         </div>
                         <div class="algorithm-actions">
-                            <button class="btn btn-primary" onclick="openAlgorithmModal('binary-search')">Visualize</button>
+                            <button class="btn btn-primary" onclick="openAlgorithmModal('binary-search')" data-algo="binary-search">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('binary-search')">Learn More</button>
                         </div>
                     </div>
@@ -269,5 +269,6 @@
             }
         });
     </script>
+    <script src="js/progressTracker.js"></script>
 </body>
 </html>
