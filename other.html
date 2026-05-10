@@ -42,7 +42,7 @@
                 <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
                     <span class="nav-bar"></span>
                     <span class="nav-bar"></span>
@@ -89,6 +89,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="window.openAlgorithmModal('kadane')" data-algo="kadane">Visualize</button>
                             <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('kadane')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="kadane" onclick="QuizModal.open('kadane')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -120,6 +121,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="window.openAlgorithmModal('floyd-warshall')" data-algo="floyd-warshall">Visualize</button>
                             <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('floyd-warshall')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="floyd-warshall" onclick="QuizModal.open('floyd-warshall')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -151,6 +153,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="window.openAlgorithmModal('warshall')" data-algo="warshall">Visualize</button>
                             <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('warshall')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="warshall" onclick="QuizModal.open('warshall')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -182,6 +185,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="window.openAlgorithmModal('kmp')" data-algo="kmp">Visualize</button>
                             <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('kmp')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="kmp" onclick="QuizModal.open('kmp')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -214,6 +218,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="window.openAlgorithmModal('rabin-karp')" data-algo="rabin-karp">Visualize</button>
                             <button class="btn btn-secondary" onclick="window.showAlgorithmTheory('rabin-karp')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="rabin-karp" onclick="QuizModal.open('rabin-karp')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -394,5 +399,7 @@
     </script>
     <script src="js/shareURLOther.js"></script>
     <script src="js/progressTracker.js"></script>
+    <script src="js/quizData.js"></script>
+    <script src="js/quizModal.js"></script>
 </body>
 </html>

@@ -42,7 +42,7 @@
                 <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
                     <span class="nav-bar"></span>
                     <span class="nav-bar"></span>
@@ -81,6 +81,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('bubble-sort')" data-algo="bubble-sort">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('bubble-sort')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="bubble-sort" onclick="QuizModal.open('bubble-sort')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -104,6 +105,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('selection-sort')" data-algo="selection-sort">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('selection-sort')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="selection-sort" onclick="QuizModal.open('selection-sort')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -127,6 +129,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('insertion-sort')" data-algo="insertion-sort">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('insertion-sort')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="insertion-sort" onclick="QuizModal.open('insertion-sort')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -150,6 +153,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('merge-sort')" data-algo="merge-sort">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('merge-sort')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="merge-sort" onclick="QuizModal.open('merge-sort')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -173,6 +177,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('quick-sort')" data-algo="quick-sort">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('quick-sort')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="quick-sort" onclick="QuizModal.open('quick-sort')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -196,6 +201,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('heap-sort')" data-algo="heap-sort">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('heap-sort')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="heap-sort" onclick="QuizModal.open('heap-sort')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -370,5 +376,7 @@
     </script>
     <script src="js/shareURL.js"></script>
     <script src="js/progressTracker.js"></script>
+    <script src="js/quizData.js"></script>
+    <script src="js/quizModal.js"></script>
 </body>
 </html>

@@ -447,27 +447,109 @@ function clearExplanation() {
 
 // Specific explanation functions
 function explainComparison(value1, value2) {
-    addExplanation(`Comparing ${value1} and ${value2}`, 'comparison');
+    let what = `Comparing ${value1} and ${value2} (highlighted in orange). `;
+    let why = `We need to check their relative order to decide if a swap is required. `;
+    let analogy = "";
+    let next = "Next, the algorithm will either perform a swap (highlighted in blue) or move to the next pair.";
+
+    switch(currentAlgorithm) {
+        case 'bubble-sort':
+            analogy = "Like checking if two books are in the right order on a shelf — we need to see which value belongs further right. ";
+            next = `Since we're in Bubble Sort, if ${value1} > ${value2}, they will bubble rightward next.`;
+            break;
+        case 'selection-sort':
+            analogy = "Like scanning your hand to find a card smaller than the current minimum. ";
+            next = `If ${value1} is the new minimum, we'll track it for a future swap.`;
+            break;
+        case 'insertion-sort':
+            analogy = "Like comparing a new card to the cards already sorted in your hand. ";
+            next = "We'll keep shifting larger elements right until we find the insertion spot.";
+            break;
+        case 'merge-sort':
+            analogy = "Like comparing the top documents of two sorted piles. ";
+            next = "The smaller document will be placed into the combined sorted pile.";
+            break;
+        case 'quick-sort':
+            analogy = "Like comparing an item's price to our 'benchmark' pivot price. ";
+            next = "Items cheaper than the pivot will move to the left side.";
+            break;
+        case 'heap-sort':
+            analogy = "Like comparing two competitors in a tournament bracket to see who is stronger. ";
+            next = "The larger value will be promoted toward the root of the heap.";
+            break;
+    }
+    addExplanation(what + why + analogy + next, 'comparison');
 }
 
 function explainSwap(value1, value2, reason = '') {
-    let message = `Swapping ${value1} and ${value2}`;
-    if (reason) {
-        message += ` because ${reason}`;
+    let what = `Swapping ${value1} and ${value2} (highlighted in blue)${reason ? ' because ' + reason : ''}. `;
+    let why = "Elements must be moved to their relative sorted positions. ";
+    let analogy = "";
+    let next = "Next, the algorithm will continue processing the remaining unsorted elements.";
+
+    switch(currentAlgorithm) {
+        case 'bubble-sort':
+            analogy = "Think of a heavier bubble rising through water — larger values bubble rightward with each pass. ";
+            next = `Next, ${value1} will be compared with the element to its right.`;
+            break;
+        case 'selection-sort':
+            analogy = "Like picking the smallest card you found and moving it to its correct spot at the front. ";
+            break;
+        case 'insertion-sort':
+            analogy = "Like sliding cards over to make a gap for a new card in your hand. ";
+            break;
+        case 'merge-sort':
+            analogy = "Like moving a document from a sub-pile into the final sorted stack. ";
+            break;
+        case 'quick-sort':
+            analogy = "Like placing all cheaper items in the left-hand bin of our partition. ";
+            break;
+        case 'heap-sort':
+            analogy = "Like swapping a champion out of the bracket once they've won their spot. ";
+            break;
     }
-    addExplanation(message, 'swap');
+    addExplanation(what + why + analogy + next, 'swap');
 }
 
 function explainPivot(value) {
-    addExplanation(`Selecting pivot: ${value}`, 'pivot');
+    let what = `Selecting pivot: ${value} (highlighted in red). `;
+    let why = "This value acts as the benchmark for partitioning the array into smaller and larger sections. ";
+    let analogy = "Like picking a 'benchmark price' at an auction — everything cheaper goes left, everything pricier goes right. ";
+    let next = "Next, every other element will be compared against this pivot.";
+    addExplanation(what + why + analogy + next, 'pivot');
 }
 
 function explainSorted(value, position) {
-    addExplanation(`Element ${value} has reached its correct sorted position`, 'sorted');
+    let what = `Element ${value} has reached its final sorted position at index ${position} (bar turns green). `;
+    let why = "We have mathematically proven that no other unsorted element belongs here. ";
+    let analogy = "";
+    let next = "Next, the algorithm will ignore this element and focus on the remaining unsorted parts.";
+
+    switch(currentAlgorithm) {
+        case 'bubble-sort':
+            analogy = "Just like a bubble finally reaching the surface — it will never move again. ";
+            break;
+        case 'selection-sort':
+            analogy = "Just like placing the absolute smallest book at the start of the shelf. ";
+            break;
+        case 'insertion-sort':
+            analogy = "Just like finally sliding a card into its perfect, permanent spot in your hand. ";
+            break;
+        case 'merge-sort':
+            analogy = "Like finishing one segment of a perfectly ordered archive. ";
+            break;
+        case 'quick-sort':
+            analogy = "Like finally locking the benchmark item in its correct place among its peers. ";
+            break;
+        case 'heap-sort':
+            analogy = "Like a tournament winner taking their permanent place on the podium. ";
+            break;
+    }
+    addExplanation(what + why + analogy + next, 'sorted');
 }
 
 function explainNoSwap() {
-    addExplanation(`No swap needed`, 'info');
+    addExplanation("No swap needed. The elements are already in the correct relative order, so we simply move on. Next, the algorithm will check the next set of elements.", 'info');
 }
 
 function explainAlgorithmStart(algorithmName) {
@@ -475,7 +557,23 @@ function explainAlgorithmStart(algorithmName) {
 }
 
 function explainPassStart(passNumber) {
-    addExplanation(`Beginning pass ${passNumber}...`, 'algorithm');
+    let what = `Beginning pass ${passNumber} of the algorithm. `;
+    let why = "Each pass brings us closer to a fully sorted state by moving at least one element to its destination. ";
+    let analogy = "";
+    let next = "This pass will now begin scanning the relevant unsorted section of the array.";
+
+    switch(currentAlgorithm) {
+        case 'bubble-sort':
+            analogy = "Like solving one row of a puzzle before moving to the next. ";
+            break;
+        case 'selection-sort':
+            analogy = "Like starting a fresh search for the smallest card in your remaining hand. ";
+            break;
+        case 'insertion-sort':
+            analogy = "Like picking up the next unsorted card to find its place in the sorted section. ";
+            break;
+    }
+    addExplanation(what + why + analogy + next, 'algorithm');
 }
 
 function explainEarlyTermination() {
@@ -483,7 +581,22 @@ function explainEarlyTermination() {
 }
 
 function explainAlgorithmComplete() {
-    addExplanation(`Algorithm completed successfully!`, 'algorithm');
+    const n = currentArray.length;
+    let what = `Sorting complete! The array is now fully ordered. `;
+    let why = `We finished with ${comparisonCount} comparisons and ${swapCount} swaps. `;
+    let analogy = "Like a library where every book is finally in its perfect, searchable home. ";
+    let complexity = "";
+    
+    switch(currentAlgorithm) {
+        case 'bubble-sort': complexity = `For this size (${n}), Bubble Sort performed at O(n²) time complexity as expected.`; break;
+        case 'selection-sort': complexity = `Selection Sort guaranteed O(n²) performance by scanning for every minimum.`; break;
+        case 'insertion-sort': complexity = `Insertion Sort was efficient, with O(n²) worst-case but faster performance on nearly sorted data.`; break;
+        case 'merge-sort': complexity = `Merge Sort achieved O(n log n) efficiency by dividing the work symmetrically.`; break;
+        case 'quick-sort': complexity = `Quick Sort finished with O(n log n) average efficiency thanks to effective partitioning.`; break;
+        case 'heap-sort': complexity = `Heap Sort maintained O(n log n) performance by using the power of a binary heap.`; break;
+    }
+    
+    addExplanation(what + why + analogy + complexity, 'algorithm');
 }
 
 // Scroll to visualization and highlight
@@ -2099,7 +2212,7 @@ async function selectionSort(arr, visualizer) {
         
         // Start finding minimum from index i
         incrementStep();
-        addExplanation(`Finding minimum from index ${i}`, 'info');
+        addExplanation(`Starting search for the minimum value from index ${i}. We need to find the smallest element in the unsorted section to move it to the front. Like scanning a hand of cards to find the absolute lowest one. Next, we will compare the current minimum with every other element in this range.`, 'info');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         // Highlight current minimum position
@@ -2122,7 +2235,7 @@ async function selectionSort(arr, visualizer) {
             visualizer.highlightBars([j], 'comparing');
             incrementComparisons();
             incrementStep();
-            addExplanation(`Comparing ${arr[j]} with current minimum ${arr[minIdx]}`, 'comparison');
+            addExplanation(`Comparing ${arr[j]} with current minimum ${arr[minIdx]}. We are checking if this element is even smaller than what we've found so far. Like finding a smaller card in your hand as you scan. Next, if ${arr[j]} < ${arr[minIdx]}, we'll update our target.`, 'comparison');
             await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
             
             if (arr[j] < arr[minIdx]) {
@@ -2130,7 +2243,7 @@ async function selectionSort(arr, visualizer) {
                 if (minIdx !== i) visualizer.unhighlightBars([minIdx]);
                 minIdx = j;
                 incrementStep();
-                addExplanation(`New minimum found: ${arr[j]} at index ${j}`, 'info');
+                addExplanation(`New minimum found: ${arr[j]} at index ${j}. We have updated our target for the final swap of this pass. Like keeping your finger on the lowest card you've seen so far. Next, we'll continue scanning the rest of the array.`, 'info');
                 visualizer.highlightBars([minIdx], 'comparing');
             } else {
                 visualizer.unhighlightBars([j]);
@@ -2145,17 +2258,17 @@ async function selectionSort(arr, visualizer) {
             [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
             incrementSwaps();
             incrementStep();
-            addExplanation(`Swapping element at index ${i} with minimum element ${arr[minIdx]}`, 'swap');
+            addExplanation(`Swapping element at index ${i} with the minimum element found (${arr[minIdx]}). We are placing the smallest value at the very start of the unsorted section. Like picking the lowest card and moving it to the front. Next, index ${i} will be locked as sorted.`, 'swap');
             await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         } else {
             incrementStep();
-            addExplanation(`Element ${arr[i]} is already at correct position`, 'info');
+            addExplanation(`Element ${arr[i]} is already at the correct position. No swap was needed because it was already the minimum. Like finding that the first card in your hand was already the lowest. Next, we'll lock this position and move to the next.`, 'info');
         }
         
         // Mark position i as sorted
         visualizer.highlightBars([i], 'sorted');
         incrementStep();
-        addExplanation(`Element ${arr[i]} has reached its correct sorted position`, 'sorted');
+        addExplanation(`Element ${arr[i]} has reached its final sorted position at index ${i}. Just like placing the smallest book at the start of the shelf — it will never be moved again. Next, we search for the next smallest value.`, 'sorted');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         // Check if animation is paused after each iteration
@@ -2173,7 +2286,7 @@ async function selectionSort(arr, visualizer) {
     // Mark last element as sorted
     visualizer.highlightBars([n - 1], 'sorted');
     incrementStep();
-    addExplanation(`Element ${arr[n - 1]} has reached its correct sorted position`, 'sorted');
+    addExplanation(`Element ${arr[n - 1]} has reached its final sorted position at index ${n - 1}. Every element has now been correctly placed. Like finally finishing your ordered hand of cards. Next, the algorithm will complete.`, 'sorted');
     
     explainAlgorithmComplete();
     console.log('Selection sort completed');
@@ -2191,7 +2304,7 @@ async function insertionSort(arr, visualizer) {
         
         // Start inserting element at index i
         incrementStep();
-        addExplanation(`Inserting element ${key} at position ${i}`, 'info');
+        addExplanation(`Inserting element ${key} at position ${i}. We need to find where this value belongs in the sorted section on the left. Like sorting playing cards in your hand one by one. Next, we will compare it with elements to its left.`, 'info');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         // Highlight the key element
@@ -2215,7 +2328,7 @@ async function insertionSort(arr, visualizer) {
             visualizer.highlightBars([j], 'comparing');
             incrementComparisons();
             incrementStep();
-            addExplanation(`Comparing ${arr[j]} with key ${key}`, 'comparison');
+            addExplanation(`Comparing ${arr[j]} with key ${key}. We're checking if we need to shift this element right to make space for the key. Like checking if a card in your hand belongs to the right of your new card. Next, if ${arr[j]} > ${key}, we'll shift it over.`, 'comparison');
             await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
             
             if (arr[j] > key) {
@@ -2224,7 +2337,7 @@ async function insertionSort(arr, visualizer) {
                 visualizer.updateBar(j + 1, arr[j]);
                 incrementSwaps();
                 incrementStep();
-                addExplanation(`Moving ${arr[j]} to position ${j + 1}`, 'swap');
+                addExplanation(`Moving ${arr[j]} to position ${j + 1}. We are shifting elements right to create a gap for the key. Like sliding cards over to make room for a new one. Next, we'll check the next element to the left.`, 'swap');
                 await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
                 visualizer.unhighlightBars([j]);
                 j--;
@@ -2238,7 +2351,7 @@ async function insertionSort(arr, visualizer) {
         arr[j + 1] = key;
         visualizer.updateBar(j + 1, key);
         incrementStep();
-        addExplanation(`Placing key ${key} at position ${j + 1}`, 'sorted');
+        addExplanation(`Placing key ${key} at position ${j + 1}. The element has found its correct relative home in the sorted section. Like finally sliding a card into its perfect spot in your hand. Next, we'll pick the next unsorted element from the right.`, 'sorted');
         visualizer.unhighlightBars([i]);
         
         // Mark sorted portion
@@ -2270,7 +2383,7 @@ async function mergeSort(arr, visualizer, left, right) {
         
         // Explain division step
         incrementStep();
-        addExplanation(`Dividing array from index ${left} to ${right}`, 'info');
+        addExplanation(`Dividing array from index ${left} to ${right}. We are breaking the problem into smaller, manageable sub-problems. Like splitting a giant stack of documents into smaller piles. Next, we will recursively sort each half.`, 'info');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         // Highlight the division point
@@ -2292,7 +2405,7 @@ async function merge(arr, visualizer, left, mid, right) {
     
     // Explain merge step
     incrementStep();
-    addExplanation(`Merging left subarray [${leftArr.join(', ')}] and right subarray [${rightArr.join(', ')}]`, 'info');
+    addExplanation(`Merging left subarray and right subarray. We are combining two sorted portions into a single ordered list. Like merging two sorted piles of documents into one perfectly ordered pile. Next, we will compare the top elements of each pile.`, 'info');
     await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
     
     let i = 0, j = 0, k = left;
@@ -2324,20 +2437,20 @@ async function merge(arr, visualizer, left, mid, right) {
         visualizer.highlightBars([k], 'comparing');
         incrementComparisons();
         incrementStep();
-        addExplanation(`Comparing ${leftArr[i]} (left) with ${rightArr[j]} (right)`, 'comparison');
+        addExplanation(`Comparing ${leftArr[i]} (left) and ${rightArr[j]} (right). We need to see which value is smaller to place it next. Like checking the top documents of two sorted stacks. Next, the smaller value will be added to our combined pile.`, 'comparison');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         if (leftArr[i] <= rightArr[j]) {
             arr[k] = leftArr[i];
             incrementSwaps();
             incrementStep();
-            addExplanation(`Placing smaller element ${leftArr[i]} at position ${k}`, 'sorted');
+            addExplanation(`Placing smaller element ${leftArr[i]} from the left pile at position ${k}. This value belongs before any remaining elements in the right pile. Like picking the next document for our stack. Next, we'll compare the next pair.`, 'sorted');
             i++;
         } else {
             arr[k] = rightArr[j];
             incrementSwaps();
             incrementStep();
-            addExplanation(`Placing smaller element ${rightArr[j]} at position ${k}`, 'sorted');
+            addExplanation(`Placing smaller element ${rightArr[j]} from the right pile at position ${k}. This value belongs before any remaining elements in the left pile. Like picking the next document for our stack. Next, we'll compare the next pair.`, 'sorted');
             j++;
         }
         
@@ -2363,7 +2476,7 @@ async function merge(arr, visualizer, left, mid, right) {
         
         incrementSwaps();
         incrementStep();
-        addExplanation(`Placing remaining element ${leftArr[i]} from left subarray at position ${k}`, 'sorted');
+        addExplanation(`Placing remaining element ${leftArr[i]} from the left subarray. Since the right pile is empty, all remaining left elements are already sorted. Like adding the rest of a stack once the other pile is finished. Next, we'll complete this merge segment.`, 'sorted');
         arr[k] = leftArr[i];
         visualizer.updateBar(k, arr[k]);
         visualizer.highlightBars([k], 'sorted');
@@ -2388,7 +2501,7 @@ async function merge(arr, visualizer, left, mid, right) {
         
         incrementSwaps();
         incrementStep();
-        addExplanation(`Placing remaining element ${rightArr[j]} from right subarray at position ${k}`, 'sorted');
+        addExplanation(`Placing remaining element ${rightArr[j]} from the right subarray. Since the left pile is empty, all remaining right elements are already sorted. Like adding the rest of a stack once the other pile is finished. Next, we'll complete this merge segment.`, 'sorted');
         arr[k] = rightArr[j];
         visualizer.updateBar(k, arr[k]);
         visualizer.highlightBars([k], 'sorted');
@@ -2400,7 +2513,7 @@ async function merge(arr, visualizer, left, mid, right) {
     
     // Mark merged segment as sorted
     incrementStep();
-    addExplanation(`Merging completed for segment from index ${left} to ${right}`, 'info');
+    addExplanation(`Merging completed for segment from index ${left} to ${right}. This section of the array is now perfectly ordered. Like finishing one segment of a giant archive. Next, we'll merge this with another sorted section.`, 'info');
     for (let i = left; i <= right; i++) {
         visualizer.highlightBars([i], 'sorted');
     }
@@ -2448,7 +2561,7 @@ async function partition(arr, visualizer, low, high) {
         visualizer.highlightBars([j], 'comparing');
         incrementComparisons();
         incrementStep();
-        addExplanation(`Comparing ${arr[j]} with pivot ${pivot}`, 'comparison');
+        addExplanation(`Comparing ${arr[j]} with pivot ${pivot}. We are deciding if this item belongs on the 'cheaper' (left) or 'pricier' (right) side of the pivot. Like sorting items around a benchmark price. Next, if it's smaller, we'll move it to the left.`, 'comparison');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         if (arr[j] < pivot) {
@@ -2459,7 +2572,7 @@ async function partition(arr, visualizer, low, high) {
                 [arr[i], arr[j]] = [arr[j], arr[i]];
                 incrementSwaps();
                 incrementStep();
-                addExplanation(`Swapping ${arr[j]} and ${arr[i]} because ${arr[j]} < pivot`, 'swap');
+                addExplanation(`Swapping ${arr[j]} and ${arr[i]} because ${arr[j]} < pivot. We are moving this smaller element to the partition on the left. Like placing all cheaper items in the left-hand bin. Next, we'll continue scanning.`, 'swap');
                 await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
             }
         }
@@ -2474,14 +2587,14 @@ async function partition(arr, visualizer, low, high) {
         [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
         incrementSwaps();
         incrementStep();
-        addExplanation(`Placing pivot ${pivot} at position ${i + 1}`, 'sorted');
+        addExplanation(`Placing pivot ${pivot} at its final position (${i + 1}). We have successfully partitioned the array around this value. Like finally placing the benchmark item in its correct middle spot. Next, the pivot is locked.`, 'sorted');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
     }
     
     visualizer.unhighlightBars([high]);
     visualizer.highlightBars([i + 1], 'sorted');
     incrementStep();
-    addExplanation(`Pivot ${pivot} has reached its correct sorted position`, 'sorted');
+    addExplanation(`Pivot ${pivot} has reached its correct sorted position. All elements to its left are smaller, and all to its right are larger. Like finally locking a benchmark in place. Next, we'll sort the remaining sub-sections.`, 'sorted');
     return i + 1;
 }
 
@@ -2493,7 +2606,7 @@ async function heapSort(arr, visualizer) {
     
     // Step 1: Build a Max Heap from the array
     incrementStep();
-    addExplanation('Building max heap from the array', 'info');
+    addExplanation('Building a max heap from the array. We are organizing elements into a tree where every parent is larger than its children. Like organizing a tournament bracket to find the strongest competitor. Next, the largest value will move to the root.', 'info');
     await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
     
     for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
@@ -2509,7 +2622,7 @@ async function heapSort(arr, visualizer) {
         }
         
         incrementStep();
-        addExplanation(`Heapifying subtree rooted at index ${i}`, 'info');
+        addExplanation(`Heapifying subtree rooted at index ${i}. We are ensuring this section follows the 'max heap' rule where parents are larger than children. Like re-evaluating a branch of a tournament. Next, we'll swap if a child is larger than the parent.`, 'info');
         await heapify(arr, visualizer, n, i);
     }
     
@@ -2528,7 +2641,7 @@ async function heapSort(arr, visualizer) {
         
         // Step 2: Swap root (largest) with last element
         incrementStep();
-        addExplanation(`Moving maximum element ${arr[0]} to sorted position ${i}`, 'swap');
+        addExplanation(`Moving the current champion (maximum) ${arr[0]} to the sorted end at index ${i}. We extract the largest value to its final home. Like awarding the trophy and removing the winner from the tournament. Next, we will rebuild the heap.`, 'swap');
         visualizer.swapBars(0, i);
         // Update the array to match the visualization
         [arr[0], arr[i]] = [arr[i], arr[0]];
@@ -2538,19 +2651,19 @@ async function heapSort(arr, visualizer) {
         // Mark the moved element as sorted
         visualizer.highlightBars([i], 'sorted');
         incrementStep();
-        addExplanation(`Element ${arr[i]} has reached its correct sorted position`, 'sorted');
+        addExplanation(`Element ${arr[i]} has reached its final sorted position at index ${i}. This 'champion' has reached its destination. Like a winner taking their place on the podium. Next, we heapify the remaining elements.`, 'sorted');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         // Step 4: Heapify the root again
         incrementStep();
-        addExplanation(`Heapifying root to maintain heap property`, 'info');
+        addExplanation(`Heapifying the root to maintain the max heap property. We need to find the new champion among the remaining elements. Like holding the next round of a tournament. Next, the largest value will rise to the root.`, 'info');
         await heapify(arr, visualizer, i, 0);
     }
     
     // Mark the last element as sorted
     visualizer.highlightBars([0], 'sorted');
     incrementStep();
-    addExplanation(`Element ${arr[0]} has reached its correct sorted position`, 'sorted');
+    addExplanation(`Element ${arr[0]} has reached its final sorted position at the front. The entire array is now sorted. Like every winner taking their spot on the podium. Next, the algorithm will complete.`, 'sorted');
     
     explainAlgorithmComplete();
     console.log('Heap sort completed');
@@ -2577,7 +2690,7 @@ async function heapify(arr, visualizer, n, i) {
         visualizer.highlightBars([left, largest], 'comparing');
         incrementComparisons();
         incrementStep();
-        addExplanation(`Comparing parent ${arr[largest]} with left child ${arr[left]}`, 'comparison');
+        addExplanation(`Comparing parent ${arr[largest]} with left child ${arr[left]}. We must ensure the parent is the strongest member of this group. Like a qualifying match in a tournament. Next, the larger of the two will move up.`, 'comparison');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         if (arr[left] > arr[largest]) {
@@ -2591,7 +2704,7 @@ async function heapify(arr, visualizer, n, i) {
         visualizer.highlightBars([right, largest], 'comparing');
         incrementComparisons();
         incrementStep();
-        addExplanation(`Comparing parent ${arr[largest]} with right child ${arr[right]}`, 'comparison');
+        addExplanation(`Comparing current largest (${arr[largest]}) with right child ${arr[right]}. We are finding the ultimate winner of this three-way match. Like the final round of a qualifying bracket. Next, the largest will become the new parent.`, 'comparison');
         await window.AlgoViz.delay(window.AlgoViz.getAnimationDelay());
         
         if (arr[right] > arr[largest]) {
@@ -2603,7 +2716,7 @@ async function heapify(arr, visualizer, n, i) {
     // If largest is not the parent, swap and continue heapifying
     if (largest !== i) {
         incrementStep();
-        addExplanation(`Swapping parent ${arr[i]} with largest child ${arr[largest]}`, 'swap');
+        addExplanation(`Swapping parent ${arr[i]} with largest child ${arr[largest]} to maintain the heap property. The stronger competitor must rise to the parent position. Like promoting a winner to the next round. Next, we heapify the affected subtree.`, 'swap');
         visualizer.swapBars(i, largest);
         // Update the array to match the visualization
         [arr[i], arr[largest]] = [arr[largest], arr[i]];

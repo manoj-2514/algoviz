@@ -18,12 +18,6 @@
         document.documentElement.setAttribute('data-theme', t);
     </script>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        (function(){
-            emailjs.init("YOUR_PUBLIC_KEY");
-        })();
-    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -43,7 +37,7 @@
                 <li class="nav-item"><a href="#contact"    class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
                     <span class="nav-bar"></span>
                     <span class="nav-bar"></span>
@@ -155,61 +149,61 @@
                 <div class="dsa-card">
                     <h3><i class="fas fa-list"></i> Arrays</h3>
                     <p>Linear data structure storing elements of same type.</p>
-                    <p class="use-case"><small>⚡ Use Case: Storing continuous elements and fast index-based lookups.</small></p>
-                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Memory allocation and basic pointers.</small></p>
+                    <p class="use-case"><small><i class="fas fa-info-circle"></i> <strong>Use Case:</strong> Storing continuous elements and fast index-based lookups.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small><i class="fas fa-graduation-cap"></i> <strong>What you'll learn:</strong> Memory allocation and basic pointers.</small></p>
                     <div style="display:flex;gap:10px;">
                         <button class="btn btn-outline" onclick="openDSAModal('arrays')">Learn More</button>
-                        <button class="btn btn-primary" onclick="openVideoModal('arrays')">▶ Watch Video</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('arrays')"><i class="fas fa-play"></i> Watch Video</button>
                     </div>
                 </div>
                 <div class="dsa-card">
                     <h3><i class="fas fa-link"></i> Linked Lists</h3>
                     <p>Dynamic data structure with nodes containing data and pointers.</p>
-                    <p class="use-case"><small>⚡ Use Case: Dynamic memory allocation without continuous blocks.</small></p>
-                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Node connections and dynamic resizing logic.</small></p>
+                    <p class="use-case"><small><i class="fas fa-info-circle"></i> <strong>Use Case:</strong> Dynamic memory allocation without continuous blocks.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small><i class="fas fa-graduation-cap"></i> <strong>What you'll learn:</strong> Node connections and dynamic resizing logic.</small></p>
                     <div style="display:flex;gap:10px;">
                         <button class="btn btn-outline" onclick="openDSAModal('linked-lists')">Learn More</button>
-                        <button class="btn btn-primary" onclick="openVideoModal('linked-lists')">▶ Watch Video</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('linked-lists')"><i class="fas fa-play"></i> Watch Video</button>
                     </div>
                 </div>
                 <div class="dsa-card">
                     <h3><i class="fas fa-layer-group"></i> Stacks &amp; Queues</h3>
                     <p>Linear structures following LIFO and FIFO principles.</p>
-                    <p class="use-case"><small>⚡ Use Case: Undo mechanisms (Stack) and task scheduling (Queue).</small></p>
-                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: LIFO &amp; FIFO principles in action.</small></p>
+                    <p class="use-case"><small><i class="fas fa-info-circle"></i> <strong>Use Case:</strong> Undo mechanisms (Stack) and task scheduling (Queue).</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small><i class="fas fa-graduation-cap"></i> <strong>What you'll learn:</strong> LIFO &amp; FIFO principles in action.</small></p>
                     <div style="display:flex;gap:10px;">
                         <button class="btn btn-outline" onclick="openDSAModal('stacks-queues')">Learn More</button>
-                        <button class="btn btn-primary" onclick="openVideoModal('stacks-queues')">▶ Watch Video</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('stacks-queues')"><i class="fas fa-play"></i> Watch Video</button>
                     </div>
                 </div>
                 <div class="dsa-card">
                     <h3><i class="fas fa-tree"></i> Trees</h3>
                     <p>Hierarchical data structure with root and child nodes.</p>
-                    <p class="use-case"><small>⚡ Use Case: Hierarchical data representations like folder structures.</small></p>
-                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Deep search algorithms and tree traversals.</small></p>
+                    <p class="use-case"><small><i class="fas fa-info-circle"></i> <strong>Use Case:</strong> Hierarchical data representations like folder structures.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small><i class="fas fa-graduation-cap"></i> <strong>What you'll learn:</strong> Deep search algorithms and tree traversals.</small></p>
                     <div style="display:flex;gap:10px;">
                         <button class="btn btn-outline" onclick="openDSAModal('trees')">Learn More</button>
-                        <button class="btn btn-primary" onclick="openVideoModal('trees')">▶ Watch Video</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('trees')"><i class="fas fa-play"></i> Watch Video</button>
                     </div>
                 </div>
                 <div class="dsa-card">
                     <h3><i class="fas fa-project-diagram"></i> Graphs</h3>
                     <p>Non-linear structure with vertices and edges.</p>
-                    <p class="use-case"><small>⚡ Use Case: Social networks, mapping navigation, and routing.</small></p>
-                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Complex relationship mapping and pathfinding algorithms.</small></p>
+                    <p class="use-case"><small><i class="fas fa-info-circle"></i> <strong>Use Case:</strong> Social networks, mapping navigation, and routing.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small><i class="fas fa-graduation-cap"></i> <strong>What you'll learn:</strong> Complex relationship mapping and pathfinding algorithms.</small></p>
                     <div style="display:flex;gap:10px;">
                         <button class="btn btn-outline" onclick="openDSAModal('graphs')">Learn More</button>
-                        <button class="btn btn-primary" onclick="openVideoModal('graphs')">▶ Watch Video</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('graphs')"><i class="fas fa-play"></i> Watch Video</button>
                     </div>
                 </div>
                 <div class="dsa-card">
                     <h3><i class="fas fa-hashtag"></i> Hash Tables</h3>
                     <p>Key-value pairs with constant time access.</p>
-                    <p class="use-case"><small>⚡ Use Case: Implementing dictionary interfaces and fast caching.</small></p>
-                    <p class="learning-outcome" style="margin-bottom:15px;"><small>🎯 What you'll learn: Hash functions and constant time O(1) lookups.</small></p>
+                    <p class="use-case"><small><i class="fas fa-info-circle"></i> <strong>Use Case:</strong> Implementing dictionary interfaces and fast caching.</small></p>
+                    <p class="learning-outcome" style="margin-bottom:15px;"><small><i class="fas fa-graduation-cap"></i> <strong>What you'll learn:</strong> Hash functions and constant time O(1) lookups.</small></p>
                     <div style="display:flex;gap:10px;">
                         <button class="btn btn-outline" onclick="openDSAModal('hash-tables')">Learn More</button>
-                        <button class="btn btn-primary" onclick="openVideoModal('hash-tables')">▶ Watch Video</button>
+                        <button class="btn btn-primary" onclick="openVideoModal('hash-tables')"><i class="fas fa-play"></i> Watch Video</button>
                     </div>
                 </div>
             </div>
@@ -276,48 +270,55 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat"><h3>15+</h3><p>Algorithms</p></div>
-                    <div class="stat"><h3>5</h3><p>Programming Languages</p></div>
-                    <div class="stat"><h3>100%</h3><p>Interactive</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
+    <!-- Connect & Contribute Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>Have questions or suggestions about AlgoViz? We'd love to hear from you!</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>hello@algoviz.dev</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-globe"></i>
-                            <span>Open Source Project — contributions welcome!</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-github"></i>
-                            <a href="https://github.com" target="_blank" rel="noopener" style="color:inherit;">View on GitHub</a>
-                        </div>
+            <h2 class="section-title">Connect & Contribute</h2>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 3rem; opacity: 0.8; font-size: 1.1rem;">
+                AlgoViz is open source — built for learners, by a learner.
+            </p>
+            
+            <div class="contribute-grid">
+                <div class="contribute-card">
+                    <div class="card-icon">🐛</div>
+                    <h3>Report a Bug</h3>
+                    <p>Found something broken? Open an issue on GitHub.</p>
+                    <a href="https://github.com/manoj-2514/algoviz/issues/new" target="_blank" rel="noopener" class="btn btn-primary">Open Issue →</a>
+                </div>
+
+                <div class="contribute-card">
+                    <div class="card-icon">💡</div>
+                    <h3>Suggest a Feature</h3>
+                    <p>Have an idea to make AlgoViz better? We'd love to hear it.</p>
+                    <a href="https://github.com/manoj-2514/algoviz/issues/new" target="_blank" rel="noopener" class="btn btn-primary">Suggest →</a>
+                </div>
+
+                <div class="contribute-card">
+                    <div class="card-icon">⭐</div>
+                    <h3>Star on GitHub</h3>
+                    <p>If AlgoViz helped you learn, give it a star — it means a lot.</p>
+                    <a href="https://github.com/manoj-2514/algoviz" target="_blank" rel="noopener" class="btn btn-primary">Star Repository →</a>
+                </div>
+
+                <div class="contribute-card card-profile">
+                    <div class="card-icon">👤</div>
+                    <h3>Built by Manoj Kumar</h3>
+                    <p>Computer Science student passionate about making DSA accessible to everyone.</p>
+                    <div class="profile-links">
+                        <a href="https://linkedin.com/in/p-manoj-kumar-5652113ba" target="_blank" rel="noopener" class="btn btn-primary">LinkedIn →</a>
+                        <a href="https://github.com/manoj-2514" target="_blank" rel="noopener" class="btn btn-primary">GitHub →</a>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm" novalidate>
-                    <div class="form-group">
-                        <input type="text" id="contactName" placeholder="Your Name" required autocomplete="name">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="contactEmail" placeholder="Your Email" required autocomplete="email">
-                    </div>
-                    <div class="form-group">
-                        <textarea id="contactMessage" placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
+            </div>
+
+            <div class="tech-stack-strip">
+                <span class="tech-label">Built with</span>
+                <div class="tech-badges">
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">GitHub Pages</span>
+                </div>
             </div>
         </div>
     </section>
@@ -333,7 +334,7 @@
                 <p>&copy; <span id="footer-year"></span> AlgoViz. All rights reserved. Built for learners.</p>
                 <div class="social-links">
                     <a href="https://github.com/manoj-2514" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/YOUR-LINKEDIN-ID" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://linkedin.com/in/p-manoj-kumar-5652113ba" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     <a href="https://twitter.com/YOUR-TWITTER-ID" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
     </footer>
@@ -364,62 +365,6 @@
 
         // Footer auto year
         document.getElementById('footer-year').textContent = new Date().getFullYear();
-
-        // Contact form — EmailJS Integration
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name    = document.getElementById('contactName').value.trim();
-            const email   = document.getElementById('contactEmail').value.trim();
-            const message = document.getElementById('contactMessage').value.trim();
-
-            if (!name || !email || !message) {
-                showToast('Please fill in all fields before sending.', 'warning');
-                return;
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                showToast('Please enter a valid email address.', 'error');
-                return;
-            }
-
-            const btn = this.querySelector('button[type="submit"]');
-            btn.disabled = true;
-            btn.textContent = 'Sending…';
-
-            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-                .then(() => {
-                    let msg = document.getElementById('emailjs-status');
-                    if(!msg) {
-                        msg = document.createElement('div');
-                        msg.id = 'emailjs-status';
-                        msg.style.marginTop = '15px';
-                        msg.style.fontWeight = 'bold';
-                        msg.style.textAlign = 'center';
-                        this.appendChild(msg);
-                    }
-                    msg.style.color = '#28a745';
-                    msg.textContent = 'Message sent!';
-                    
-                    this.reset();
-                    btn.disabled = false;
-                    btn.textContent = 'Send Message';
-                }, (error) => {
-                    let msg = document.getElementById('emailjs-status');
-                    if(!msg) {
-                        msg = document.createElement('div');
-                        msg.id = 'emailjs-status';
-                        msg.style.marginTop = '15px';
-                        msg.style.fontWeight = 'bold';
-                        msg.style.textAlign = 'center';
-                        this.appendChild(msg);
-                    }
-                    msg.style.color = '#dc3545';
-                    msg.textContent = 'Error, try again';
-                    
-                    console.error('EmailJS Error:', error);
-                    btn.disabled = false;
-                    btn.textContent = 'Send Message';
-                });
-        });
 
         // DSA modal close
         document.querySelectorAll('.dsa-close').forEach(btn => {

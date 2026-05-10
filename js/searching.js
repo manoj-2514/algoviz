@@ -550,23 +550,29 @@ window.updateStatistics = function () {
 };
 
 // Live explanation
-window.updateLiveExplanation = function(text,type="comparison"){
+window.updateLiveExplanation = function(text, actionType = "info") {
+    const panel = document.getElementById("liveExplanation");
+    if (!panel) return;
 
-    const panel=document.getElementById("liveExplanation");
+    // Color class mapping for searching
+    const colorMap = {
+        'compare':      'explanation-comparing',
+        'found':        'explanation-found', 
+        'not-found':    'explanation-notfound',
+        'eliminate':    'explanation-eliminate',
+        'info':         'explanation-info',
+        'range':        'explanation-info'
+    };
 
-    const p=document.createElement("p");
+    const item = document.createElement("p");
+    item.className = 'explanation-item ' + (colorMap[actionType] || 'explanation-info');
+    item.textContent = text;
 
-    p.textContent=text;
+    panel.appendChild(item);
+    panel.scrollTop = panel.scrollHeight;
 
-    p.classList.add(type);
-
-    panel.appendChild(p);
-
-    panel.scrollTop=panel.scrollHeight;
-
-    const steps=panel.querySelectorAll("p");
-
-    if(steps.length>25){
+    const steps = panel.querySelectorAll(".explanation-item");
+    if (steps.length > 25) {
         steps[0].remove();
     }
 };

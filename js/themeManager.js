@@ -3,7 +3,7 @@ const themeKey = 'av_theme';
 function initToggleIcon() {
     const theme = document.documentElement.getAttribute('data-theme');
     const btn = document.getElementById('theme-toggle');
-    if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    if (btn) btn.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
 }
 
 window.toggleTheme = function() {

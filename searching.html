@@ -41,7 +41,7 @@
                 <li class="nav-item"><a href="index.html#learn" class="nav-link">Learn DSA</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
                     <span class="nav-bar"></span>
                     <span class="nav-bar"></span>
@@ -78,6 +78,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('linear-search')" data-algo="linear-search">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('linear-search')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="linear-search" onclick="QuizModal.open('linear-search')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -100,6 +101,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('binary-search')" data-algo="binary-search">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('binary-search')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="binary-search" onclick="QuizModal.open('binary-search')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -160,13 +162,15 @@
                         <div class="counter-item"><span class="counter-label">Step:</span><span class="counter-value" id="stepCounter">0</span></div>
                         <div class="counter-item"><span class="counter-label">Comparisons:</span><span class="counter-value" id="comparisons">0</span></div>
                     </div>
-                    <div class="visualization-graph">
-                        <div id="visualizer" class="visualizer"></div>
-                    </div>
-                    <div class="explanation-panel">
-                        <h4>Live Explanation</h4>
-                        <div id="liveExplanation" class="explanation-content">
-                            <p>Start an algorithm to see live explanations here...</p>
+                    <div class="visualization-layout">
+                        <div class="visualization-graph">
+                            <div id="visualizer" class="visualizer"></div>
+                        </div>
+                        <div class="explanation-panel">
+                            <h4>Live Explanation</h4>
+                            <div id="liveExplanation" class="explanation-content">
+                                <p>Start an algorithm to see live explanations here...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -277,5 +281,7 @@
     </script>
     <script src="js/shareURLSearch.js"></script>
     <script src="js/progressTracker.js"></script>
+    <script src="js/quizData.js"></script>
+    <script src="js/quizModal.js"></script>
 </body>
 </html>

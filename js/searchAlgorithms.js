@@ -20,7 +20,7 @@ async function runLinearSearch(array, target, visualizer) {
 
     const bars = visualizer.getBars();
 
-    window.updateLiveExplanation("🔍 Linear Search started. Checking elements sequentially.");
+    window.updateLiveExplanation("🔍 Linear Search started. Like checking names on an attendance list one by one from the top — no skipping allowed. We'll check every element in order (highlighted in orange).", "info");
 
     for (let i = 0; i < array.length; i++) {
 
@@ -38,7 +38,7 @@ async function runLinearSearch(array, target, visualizer) {
         window.updateStatistics();
 
         window.updateLiveExplanation(
-            `Step ${window.stepCount}: Compare index ${i} → value ${array[i]} with target ${target}`
+            `Checking index ${i} (value ${array[i]}) against target ${target} (highlighted in orange). Like scanning an attendance list line by line — we must check every name until we find the right one. ${array[i]} ${array[i] === target ? "matches" : "does not match"} ${target}, so we ${array[i] === target ? "found it!" : "move to the next element (marked red).."}`, "compare"
         );
 
         bars[i].classList.add("comparing");
@@ -51,7 +51,7 @@ async function runLinearSearch(array, target, visualizer) {
             bars[i].classList.add("found");
 
             window.updateLiveExplanation(
-                `✅ Target ${target} found at index ${i}`
+                `Target ${target} found at index ${i} (bar turns green) after ${window.comparisonCount} comparisons! Just like spotting the name you were looking for on the attendance list — the search stops immediately. Linear Search found the value in O(n) time — in the worst case it checks every single element.`, "found"
             );
 
             await delay(800);
@@ -64,7 +64,7 @@ async function runLinearSearch(array, target, visualizer) {
         bars[i].classList.add("not-found");
 
         window.updateLiveExplanation(
-            `❌ ${array[i]} ≠ ${target} → continue searching`
+            `${array[i]} is not equal to ${target} (bar turns red). Just like seeing a name on the list that isn't the one you're looking for — we must keep moving down the page to find the match.`, "not-found"
         );
 
         await delay(getDelay() / 2);
@@ -73,7 +73,7 @@ async function runLinearSearch(array, target, visualizer) {
     }
 
     window.updateLiveExplanation(
-        `❌ Target ${target} not found after scanning all elements`
+        `Target ${target} was not found after checking all ${array.length} elements (unsuccessful checks turned red). Like reaching the end of the attendance list without finding the name — we checked everywhere. Linear Search confirmed absence in O(n) time — every element was checked exactly once.`, "not-found"
     );
 
     window.enableControls();
@@ -93,7 +93,7 @@ async function runBinarySearch(array, target, visualizer) {
     const bars = visualizer.getBars();
 
     window.updateLiveExplanation(
-        "🔍 Binary Search started. Array must be sorted."
+        "🔍 Binary Search started. Like finding a word in a dictionary — we'll open to the middle, decide which half to search, and discard the other. Note: The array must be sorted (blue highlights show the active range).", "info"
     );
 
     await delay(getDelay());
@@ -120,7 +120,7 @@ async function runBinarySearch(array, target, visualizer) {
 
         window.updateBinaryIndices(left, mid, right);
 
-        window.updateLiveExplanation(`Comparing ${sorted[mid]} with ${target}`,"compare");
+        window.updateLiveExplanation(`Checking middle element at index ${mid} (value ${sorted[mid]}) highlighted in orange. The current search range is highlighted in blue. Like opening a dictionary to the middle page — we check if this is our word or which half to search next. Target ${target} is ${target < sorted[mid] ? "less than" : (target > sorted[mid] ? "greater than" : "equal to")} ${sorted[mid]}, so we ${target < sorted[mid] ? "eliminate the right half" : (target > sorted[mid] ? "eliminate the left half" : "found it!")}.`,"compare");
 
         bars.forEach(bar => {
             bar.classList.remove("comparing","found","not-found","searching-range");
@@ -139,7 +139,7 @@ async function runBinarySearch(array, target, visualizer) {
             bars[mid].classList.remove("comparing","searching-range");
             bars[mid].classList.add("found");
 
-            window.updateLiveExplanation(`Element ${target} found!`,"success");
+            window.updateLiveExplanation(`Target ${target} found at index ${mid} (bar turns green) in just ${window.comparisonCount} comparisons! Like finding your word on the exact dictionary page you opened to — Binary Search zeroed in precisely. Binary Search found this in O(log n) time — with ${sorted.length} elements, it needed at most ${Math.ceil(Math.log2(sorted.length))} comparisons.`,"found");
 
             await delay(800);
 
@@ -152,15 +152,10 @@ async function runBinarySearch(array, target, visualizer) {
         }
 
         if (sorted[mid] < target) {
-
-            window.updateLiveExplanation(`Step ${window.stepCount}: Searching range [${left}-${right}]`);
-
+            window.updateLiveExplanation(`Eliminating indices ${left} to ${mid} — target ${target} is greater than ${sorted[mid]} at index ${mid}. Like tearing out the first half of the dictionary — everything before this page is too small to contain our word. New search range: index ${mid + 1} to ${right}. Next, we check the middle of this smaller range.`, "eliminate");
             left = mid + 1;
-
         } else {
-
-            window.updateLiveExplanation(`Step ${window.stepCount}: Searching range [${left}-${right}]`,"range");
-
+            window.updateLiveExplanation(`Eliminating indices ${mid} to ${right} — target ${target} is less than ${sorted[mid]} at index ${mid}. Like ignoring the second half of the dictionary — everything after this page is too large. New search range: index ${left} to ${mid - 1}. Next, we check the middle of this smaller range.`,"eliminate");
             right = mid - 1;
         }
 
@@ -173,7 +168,7 @@ async function runBinarySearch(array, target, visualizer) {
 
     window.updateBinaryIndices("-", "-", "-");
 
-    window.updateLiveExplanation(`Element not found`,"fail");
+    window.updateLiveExplanation(`Target ${target} not found — search range collapsed to empty after ${window.comparisonCount} comparisons. Like narrowing down dictionary pages until there are none left — the word simply doesn't exist in this book. Binary Search confirmed absence in O(log n) time — far more efficient than checking every element.`,"not-found");
 
     bars.forEach(bar=>{
         bar.classList.remove("comparing","found","not-found","searching-range");

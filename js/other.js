@@ -22,13 +22,26 @@ function getDelay() { return (11 - window.OtherAnim.animationSpeed) * 150; }
 function log(msg, type = 'info') {
     const panel = document.getElementById('liveExplanation');
     if (!panel) return;
+
+    // Color class mapping for other algorithms
+    const colorMap = {
+        'active':    'expl-other-active',
+        'success':   'expl-other-success',
+        'fail':      'expl-other-fail',
+        'update':    'expl-other-update',
+        'discovery': 'expl-other-discovery',
+        'info':      'expl-other-info'
+    };
+
     const p = document.createElement('p');
     p.textContent = msg;
-    p.className = type;
+    p.className = 'explanation-item ' + (colorMap[type] || 'expl-other-info');
+    
     panel.appendChild(p);
     panel.scrollTop = panel.scrollHeight;
-    const items = panel.querySelectorAll('p');
-    if (items.length > 40) items[0].remove();
+    
+    const items = panel.querySelectorAll('.explanation-item');
+    if (items.length > 50) items[0].remove();
 }
 
 function clearLog() {
@@ -451,7 +464,7 @@ async function startVisualization() {
 
 // ─── Algorithms ───────────────────────────────────────────────────────────────
 async function runKadane() {
-    log(`Starting Kadane's Algorithm on array of size ${currentArray.length}`, 'algorithm');
+    log(`Starting Kadane's Algorithm. Like keeping track of your best winning streak in a game — reset when you go negative, keep going when positive. We'll find the contiguous subarray with the largest sum. Next, we examine each element.`, 'info');
     let maxSoFar = -Infinity;
     let maxEndingHere = 0;
     let start = 0, tempStart = 0, end = 0;
@@ -472,15 +485,15 @@ async function runKadane() {
             maxSoFar = maxEndingHere;
             start = tempStart;
             end = i;
-            log(`Step ${window.stepCount}: New max found ending at index ${i} = ${maxSoFar}`, 'comparison');
+            log(`New global maximum found! Ending at index ${i}, sum reached ${maxSoFar}. Like beating your all-time high score — we update our record to the new best result. Next, we continue checking if future elements can beat this.`, 'success');
         } else {
-            log(`Step ${window.stepCount}: Element ${currentArray[i]}, max ending here = ${maxEndingHere}`, 'info');
+            log(`Examining element ${currentArray[i]} at index ${i}. Current running total is ${maxEndingHere}. Like adding a result to your current streak — if the total stays positive, the streak is worth keeping. Next, we see if it improved our overall record.`, 'active');
         }
         
         if (maxEndingHere < 0) {
             maxEndingHere = 0;
             tempStart = i + 1;
-            log(`Step ${window.stepCount}: Negative sum. Resetting subarray start to ${tempStart}`, 'info');
+            log(`Running total went negative (${maxEndingHere}) — resetting subarray at index ${i}. Like ending a losing streak and starting fresh — a negative total only drags down future results. Next, we start a new subarray from the next element.`, 'fail');
         }
         
         updateCounters(maxSoFar);
@@ -488,18 +501,19 @@ async function runKadane() {
         renderArrayBlocks(currentArray, hi, [start, end]);
     }
     
-    log(`✅ Kadane's complete. Max sum is ${maxSoFar} from index ${start} to ${end}.`, 'algorithm');
+    log(`✅ Kadane's complete! Best streak found: ${maxSoFar}. Like reviewing your gaming history — this is the mathematically proven highest score possible from any continuous section. Final range highlighted.`, 'success');
     renderArrayBlocks(currentArray, {}, [start, end]);
 }
 
 async function runFloydWarshall() {
-    log(`Starting Floyd-Warshall Algorithm`, 'algorithm');
+    log(`Starting Floyd-Warshall Algorithm. Like a travel agent checking if flying via a hub city (k) gives a cheaper route than flying direct between cities (i and j). We'll find all-pairs shortest paths. Next, we iterate through intermediate nodes.`, 'info');
     const n = fwMatrix.length;
     let dist = JSON.parse(JSON.stringify(fwMatrix));
     
     showDistanceTable(true, 'Distance Matrix');
     
     for (let k = 0; k < n; k++) {
+        log(`Considering node V${k} as an intermediate hub. Like checking all possible flights that connect through this specific airport. Next, we update all pairs (i, j) that could benefit from this hub.`, 'info');
         for (let i = 0; i < n; i++) {
             for (let j = 0; j < n; j++) {
                 if (i===j) continue;
@@ -512,11 +526,11 @@ async function runFloydWarshall() {
                 const dKJ = (dist[k][j] === null || dist[k][j] === Infinity) ? '∞' : dist[k][j];
                 const current = (dist[i][j] === null || dist[i][j] === Infinity) ? '∞' : dist[i][j];
                 
-                log(`Check path V${i}→V${j} via V${k}. Current: ${current}, Via k: ${dIK}+${dKJ}`, 'info');
+                log(`Checking route V${i}→V${j} via hub V${k}. Current direct cost: ${current}, Cost via hub: ${dIK} + ${dKJ}. Like comparing a direct flight with a layover — we look for the cheaper option. Next, we decide if we should update.`, 'active');
                 
                 if (dist[i][k] !== null && dist[i][k] !== Infinity && dist[k][j] !== null && dist[k][j] !== Infinity && dist[i][k] + dist[k][j] < dist[i][j]) {
                     dist[i][j] = dist[i][k] + dist[k][j];
-                    log(`  → Found shorter path: ${dist[i][j]}`, 'comparison');
+                    log(`Update found! The path via V${k} is shorter (${dist[i][j]}). Like the travel agent finding a cheaper layover — we update our records with the better route. Next, we continue checking other pairs.`, 'update');
                     renderFWMatrix(dist, n, k, i, j, true, true);
                     await waitStep();
                 }
@@ -525,11 +539,11 @@ async function runFloydWarshall() {
     }
     
     renderFWMatrix(dist, n);
-    log(`✅ Floyd-Warshall complete. Matrix shows all-pairs shortest paths.`, 'algorithm');
+    log(`✅ Floyd-Warshall complete! All shortest paths found. Like a perfectly optimized global flight map — every city-to-city route is now as cheap as possible. Final matrix displayed.`, 'success');
 }
 
 async function runWarshall() {
-    log(`Starting Warshall's Algorithm for Transitive Closure`, 'algorithm');
+    log(`Starting Warshall's Algorithm. Like checking if you can reach any city from any other city using any combination of connecting flights. We'll compute the Transitive Closure. Next, we iterate through intermediate nodes.`, 'info');
     const n = fwMatrix.length;
     let reach = JSON.parse(JSON.stringify(fwMatrix));
     
@@ -548,11 +562,11 @@ async function runWarshall() {
                 const canReachKJ = reach[k][j] === 1 ? 'T' : 'F';
                 const current = reach[i][j] === 1 ? 'T' : 'F';
                 
-                log(`Check path V${i}→V${j} via V${k}. Current: ${current}, Via k: ${canReachIK} AND ${canReachKJ}`, 'info');
+                log(`Checking if V${i} can reach V${j} via V${k}. Direct: ${current}, Via k: ${canReachIK} AND ${canReachKJ}. Like seeing if a layover at V${k} connects two cities that weren't connected before. Next, we update reachability if a path exists.`, 'active');
                 
                 if (reach[i][j] === 0 && reach[i][k] === 1 && reach[k][j] === 1) {
                     reach[i][j] = 1;
-                    log(`  → Found path! Now V${i} can reach V${j}`, 'comparison');
+                    log(`Connection confirmed! V${i} can now reach V${j} through V${k}. Like opening a new travel route between previously disconnected cities — our network becomes more reachable. Next, we check the next pair.`, 'success');
                     renderWarshallMatrix(reach, n, k, i, j, true, true);
                     await waitStep();
                 }
@@ -561,11 +575,11 @@ async function runWarshall() {
     }
     
     renderWarshallMatrix(reach, n);
-    log(`✅ Warshall's complete. Matrix shows Transitive Closure.`, 'algorithm');
+    log(`✅ Warshall's complete! Transitive Closure built. Like a fully connected map showing every possible destination reachable from each starting point. Final reachability matrix displayed.`, 'success');
 }
 
 async function runKMP() {
-    log(`Starting KMP String Matching`, 'algorithm');
+    log(`Starting KMP String Matching. Like a smart text search that remembers partial matches — never wastes a comparison it already made. We'll search for the pattern in the text. Next, we build the LPS (Failure) table.`, 'info');
     const t = textString;
     const p = patternString;
     const m = p.length;
@@ -604,22 +618,22 @@ async function runKMP() {
         renderStrings(t, p, i, j, {start: i-j, end: -1, success: false, fail: false});
         
         if (p[j] === t[i]) {
-            log(`Step ${window.stepCount}: Match at pattern[${j}] and text[${i}] ('${t[i]}')`, 'comparison');
+            log(`Character match! pattern[${j}] == text[${i}] ('${t[i]}'). Like finding the next correct letter in a password — we're one step closer to a full match. Next, we check the next character in the pattern.`, 'success');
             i++; j++;
             if (j === m) {
-                log(`✅ Pattern found at index ${i - j}!`, 'algorithm');
+                log(`✅ Pattern found! Complete match at index ${i - j}. Like finding a specific quote in a massive book — we used the precomputed table to avoid redundant work. Next, we continue searching for more occurrences.`, 'success');
                 renderStrings(t, p, -1, -1, {start: i-j, end: i-1, success: true, fail: false});
                 await waitStep();
                 j = lps[j - 1];
             }
         } else {
-            log(`Step ${window.stepCount}: Mismatch at pattern[${j}] and text[${i}]`, 'info');
+            log(`Mismatch at pattern[${j}] and text[${i}]. Like hitting a wrong note in a song — we need to adjust our position. Next, we use the LPS table to skip unnecessary comparisons.`, 'fail');
             renderStrings(t, p, i, j, {start: i-j, end: -1, success: false, fail: true});
             await waitStep();
             
             if (j !== 0) {
                 j = lps[j - 1];
-                log(`  → KMP shift: using LPS to shift pattern. J becomes ${j}`, 'info');
+                log(`KMP Smart Skip: shifting pattern using LPS table to index ${j}. Like realizing you don't have to restart the song from the beginning because the last few notes still fit somewhere else. Next, we resume comparison.`, 'update');
             } else {
                 i++;
             }
@@ -630,7 +644,7 @@ async function runKMP() {
 }
 
 async function runRabinKarp() {
-    log(`Starting Rabin-Karp String Matching`, 'algorithm');
+    log(`Starting Rabin-Karp String Matching. Like using a fingerprint to quickly screen suspects before doing a full identity check. We'll use a rolling hash to skip clear mismatches. Next, we compute initial hashes.`, 'info');
     const t = textString;
     const p = patternString;
     const m = p.length;
@@ -662,7 +676,7 @@ async function runRabinKarp() {
         setVariablesDisplay('Hashes', `Pattern Hash = ${pHash}<br>Current Text Hash (${t.substring(i, i+m)}) = ${tHash}`);
         
         if (pHash === tHash) {
-            log(`Step ${window.stepCount}: Hashes match! Checking characters...`, 'comparison');
+            log(`Hash match! Potential pattern found at index ${i}. Like finding a fingerprint match — it's highly likely this is our pattern, but we must verify the characters. Next, we perform a character-by-character check.`, 'active');
             let match = true;
             for (let j = 0; j < m; j++) {
                 if (t[i + j] !== p[j]) {
@@ -670,17 +684,18 @@ async function runRabinKarp() {
                 }
             }
             if (match) {
-                log(`✅ Pattern found at index ${i}!`, 'algorithm');
+                log(`✅ Verified! Characters match at index ${i}. Like confirming the suspect's identity after a fingerprint hit — we have a definitive pattern match. Next, we slide the window to continue.`, 'success');
                 renderStrings(t, p, -1, -1, {start: i, end: i+m-1, success: true});
                 await waitStep();
             } else {
-                log(`Spurious hit, characters don't match.`, 'info');
+                log(`Spurious hit! Hashes matched but characters differ. Like two people having similar fingerprints — the hash filter wasn't perfect, so we discard this window. Next, we slide to the next position.`, 'fail');
             }
         } else {
-            log(`Step ${window.stepCount}: Hashes don't match. Sliding window.`, 'info');
+            log(`Hashes don't match (Text: ${tHash}, Pattern: ${pHash}). Like two completely different fingerprints — we can safely skip comparing these characters. Next, we slide the window using the rolling hash.`, 'discovery');
         }
         
         if (i < n - m) {
+            log(`Rolling hash update: Sliding from index ${i} to ${i+1}. Like updating a running checksum — we only adjust for the entering and exiting characters, keeping it O(1). Next, we check the new hash.`, 'update');
             tHash = (d * (tHash - t.charCodeAt(i) * h) + t.charCodeAt(i + m)) % q;
             if (tHash < 0) tHash = (tHash + q);
         }

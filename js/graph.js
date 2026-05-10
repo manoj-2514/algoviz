@@ -28,13 +28,26 @@ function getDelay() { return (11 - window.GraphAnim.animationSpeed) * 120; }
 function log(msg, type = 'info') {
     const panel = document.getElementById('liveExplanation');
     if (!panel) return;
+
+    // Color class mapping for graph actions
+    const colorMap = {
+        'visiting':  'expl-visiting',
+        'complete':  'expl-complete',
+        'backtrack': 'expl-backtrack',
+        'discovery': 'expl-discovery',
+        'mst':       'expl-mst',
+        'info':      'expl-info'
+    };
+
     const p = document.createElement('p');
     p.textContent = msg;
-    p.className = type;
+    p.className = 'explanation-item ' + (colorMap[type] || 'expl-info');
+    
     panel.appendChild(p);
     panel.scrollTop = panel.scrollHeight;
-    const items = panel.querySelectorAll('p');
-    if (items.length > 40) items[0].remove();
+    
+    const items = panel.querySelectorAll('.explanation-item');
+    if (items.length > 50) items[0].remove();
 }
 
 function clearLog() {
@@ -370,7 +383,7 @@ async function waitStep() {
 
 // ─── BFS ──────────────────────────────────────────────────────────────────────
 async function runBFS(start) {
-    log(`🔍 BFS starting from node ${start}`, 'algorithm');
+    log(`🔍 BFS starting from node ${start}. Like ripples spreading outward from a stone dropped in water — exploring all nearby nodes before going further. This ensures we find the shortest path in unweighted graphs. Next, we check the first node in the queue.`, 'info');
     setQueueDisplay('Queue', `[${start}]`);
 
     const visited = new Set();
@@ -393,7 +406,7 @@ async function runBFS(start) {
 
             nodeStates[node] = 'visited';
             if (window.TraversalPath) window.TraversalPath.addNode(node);
-            log(`Step ${window.stepCount}: Visiting node ${node}`, 'comparison');
+            log(`Now visiting node ${node} (dequeued from front). Like the ripple fully arriving at this point — we explore all of ${node}'s unvisited neighbors now. Node ${node} is marked visited. Next, we scan for its neighbors.`, 'visiting');
             renderGraphSVG(nodeStates, edgeStates);
 
             setQueueDisplay('Queue', queue.length ? `[${queue.join(', ')}]` : '(empty)');
@@ -405,7 +418,7 @@ async function runBFS(start) {
                     nodeStates[neighbor] = 'queued';
                     const ek = [node, neighbor].sort().join('-');
                     edgeStates[ek] = 'visited';
-                    log(`  → Enqueue neighbor ${neighbor}`, 'info');
+                    log(`Adding neighbor ${neighbor} to the queue. Like a ripple reaching a new point on the water surface — this node is now known but not yet fully explored. Next, we continue processing the queue before visiting ${neighbor}.`, 'discovery');
                 }
             }
 
@@ -419,7 +432,7 @@ async function runBFS(start) {
             nodeStates[node] = 'complete';
         }
         renderGraphSVG(nodeStates, edgeStates);
-        log('✅ BFS complete! All reachable nodes visited.', 'algorithm');
+        log(`✅ BFS complete! All reachable nodes visited. Like the ripple reaching every reachable point in the pond — BFS guarantees the shortest path here. Traversal finished in ${window.stepCount} steps.`, 'complete');
     } catch(e) {
         if (e && e.message !== 'reset') console.error('[BFS Error]', e);
     }
@@ -428,7 +441,7 @@ async function runBFS(start) {
 
 // ─── DFS (Iterative — stack-based, avoids recursion limit) ──────────────────
 async function runDFS(start) {
-    log(`🔍 DFS starting from node ${start} (iterative)`, 'algorithm');
+    log(`🔍 DFS starting from node ${start}. Like navigating a maze by always going as deep as possible before backtracking to try another path. This helps in exploring entire branches fully. Next, we visit the top of the stack.`, 'info');
 
     const visited  = new Set();
     const nodeStates = {};
@@ -456,7 +469,7 @@ async function runDFS(start) {
                 const ek = [parent, node].sort().join('-');
                 edgeStates[ek] = 'visited';
             }
-            log(`Step ${window.stepCount}: Visiting node ${node}`, 'comparison');
+            log(`Now visiting node ${node}. Like walking into a new passage in a maze — we go as deep as we can from here. Node ${node} is marked visited. Next, we look for its unvisited neighbors to push them onto the stack.`, 'visiting');
             renderGraphSVG(nodeStates, edgeStates);
             setQueueDisplay('Stack', stack.length
                 ? `[${stack.map(s => s.node).reverse().join(', ')}]`
@@ -475,7 +488,7 @@ async function runDFS(start) {
                     if (!nodeStates[neighbour] || nodeStates[neighbour] === 'unvisited') {
                         nodeStates[neighbour] = 'stack';
                     }
-                    log(`  → Push ${neighbour} onto stack`, 'info');
+                    log(`Pushing neighbor ${neighbour} onto the stack. Like marking a junction in the maze to return to later — we'll come back if our current path hits a dead end. Next, we'll keep going deeper if possible.`, 'discovery');
                 }
             }
             renderGraphSVG(nodeStates, edgeStates);
@@ -488,7 +501,7 @@ async function runDFS(start) {
             nodeStates[node] = 'complete';
         }
         renderGraphSVG(nodeStates, edgeStates);
-        log('✅ DFS complete! All reachable nodes visited.', 'algorithm');
+        log(`✅ DFS complete! All branches explored. Like having mapped every possible passage in the maze — we've visited all reachable nodes. Traversal finished in ${window.stepCount} steps.`, 'complete');
     } catch(e) {
         if (e && e.message !== 'reset') console.error('[DFS Error]', e);
     }
@@ -498,7 +511,7 @@ async function runDFS(start) {
 
 // ─── Dijkstra ─────────────────────────────────────────────────────────────────
 async function runDijkstra(start, end) {
-    log(`🗺️ Dijkstra from ${start} to ${end}`, 'algorithm');
+    log(`🗺️ Dijkstra's Shortest Path from ${start} to ${end}. Like a GPS finding the shortest route — always taking the cheapest road available next. We prioritize nodes with the smallest current distance. Next, we pick the best node to explore.`, 'info');
     const nodes = [...graphNodes.keys()];
     const dist  = {};
     const prev  = {};
@@ -525,7 +538,7 @@ async function runDijkstra(start, end) {
             if (dist[u] === Infinity) break;
 
             nodeStates[u] = 'current';
-            log(`Step ${++window.stepCount}: Processing node ${u} (dist=${dist[u]})`, 'comparison');
+            log(`Processing node ${u} (current distance = ${dist[u]}). Like deciding which intersection to turn at based on the shortest estimated time — u is our best option right now. Next, we check if we can improve paths to its neighbors.`, 'visiting');
             renderGraphSVG(nodeStates, edgeStates);
             renderDistanceTable(dist, prev, nodes);
             setQueueDisplay('Unvisited', `[${[...unvisited].join(', ')}]`);
@@ -550,7 +563,7 @@ async function runDijkstra(start, end) {
                 document.getElementById('totalDistance').textContent = dist[end];
                 renderGraphSVG(nodeStates, edgeStates);
                 if (window.TraversalPath) window.TraversalPath.setShortestPaths(dist, start);
-                log(`✅ Shortest path to ${end}: ${dist[end]}`, 'algorithm');
+                log(`✅ Destination reached! Shortest path to ${end} is ${dist[end]}. Like the GPS announcing 'You have arrived' — we found the mathematically proven best route. Final path highlighted in green.`, 'complete');
                 break;
             }
 
@@ -562,7 +575,7 @@ async function runDijkstra(start, end) {
                     prev[v] = u;
                     const ek = [u, v].sort().join('-');
                     edgeStates[ek] = 'visited';
-                    log(`  → Relax ${u}→${v}: new dist ${alt}`, 'info');
+                    log(`Relaxing edge ${u}→${v}: found a shorter path to ${v} (new distance ${alt}). Like the GPS recalculating a faster route after finding a shortcut — we update our records. Next, we continue looking for even better paths.`, 'mst');
                 }
             }
             renderDistanceTable(dist, prev, nodes);
@@ -577,7 +590,7 @@ async function runDijkstra(start, end) {
 
 // ─── Prim's ───────────────────────────────────────────────────────────────────
 async function runPrim(start) {
-    log(`🌲 Prim's MST starting from node ${start}`, 'algorithm');
+    log(`🌲 Prim's MST starting from node ${start}. Like building a network of roads connecting all cities using the shortest possible total road length. We grow the MST one node at a time. Next, we pick the cheapest edge connected to our tree.`, 'info');
     const nodes = [...graphNodes.keys()];
     const inMST = new Set([start]);
     const nodeStates={}, edgeStates={};
@@ -615,11 +628,11 @@ async function runPrim(start) {
             updateCounters();
             document.getElementById('mstEdges').textContent = mstEdgeList.length;
 
-            log(`Step ${window.stepCount}: Add edge ${minEdge.from}–${minEdge.to} (weight=${minEdge.weight})`, 'comparison');
+            log(`Adding edge ${minEdge.from}–${minEdge.to} (weight ${minEdge.weight}) to MST. Like laying the cheapest possible cable to connect node ${minEdge.to} to our existing network — efficiency is key. Next, we update our candidate edges for the expanded tree.`, 'mst');
             renderGraphSVG(nodeStates, edgeStates);
             renderEdgeTable(mstEdgeList, 'MST Edges');
         }
-        log("✅ Prim's MST complete!", 'algorithm');
+        log(`✅ Prim's MST complete! All cities connected with minimum total road length. Like a fully optimized infrastructure project — we used exactly V-1 edges. Total MST weight calculated.`, 'complete');
     } catch(e) {
         if (e && e.message !== 'reset') console.error('[Prim Error]', e);
     }
@@ -646,7 +659,7 @@ function makeUF(nodes) {
 }
 
 async function runKruskal() {
-    log('🌲 Kruskal\'s MST – sorting all edges by weight', 'algorithm');
+    log(`🌲 Kruskal's MST: Sorting all edges by weight. Like connecting islands with bridges — we always build the shortest available bridge that doesn't create a loop. We'll check edges from cheapest to most expensive.`, 'info');
     const nodes = [...graphNodes.keys()];
     const allEdges = [];
     for (const [from, neighbors] of graphEdges) {
@@ -682,16 +695,16 @@ async function runKruskal() {
                 nodeStates[edge.from] = 'visited';
                 nodeStates[edge.to]   = 'visited';
 
-                log(`Step ${window.stepCount}: Add edge ${edge.from}–${edge.to} (weight=${edge.weight})`, 'comparison');
+                log(`Adding edge ${edge.from}–${edge.to} (weight ${edge.weight}) to MST. Like building a bridge between two islands that were previously separated — we connect two different components. Next, we check the next cheapest edge.`, 'mst');
                 renderGraphSVG(nodeStates, edgeStates);
                 renderEdgeTable(allEdges, 'All Edges');
 
                 if (mstCount === nodes.length - 1) break;
             } else {
-                log(`Skip edge ${edge.from}–${edge.to}: would form a cycle`, 'info');
+                log(`Skipping edge ${edge.from}–${edge.to}: would form a cycle. Like a bridge connecting two points already on the same island — it's redundant and doesn't help connect new areas. Next, we skip to the next candidate.`, 'backtrack');
             }
         }
-        log("✅ Kruskal's MST complete!", 'algorithm');
+        log(`✅ Kruskal's MST complete! All islands connected without any redundant loops. Like a perfectly linked archipelago — minimum cost achieved. Final MST highlighted.`, 'complete');
     } catch(e) {
         if (e && e.message !== 'reset') console.error('[Kruskal Error]', e);
     }

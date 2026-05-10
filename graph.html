@@ -42,7 +42,7 @@
                 <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
                     <span class="nav-bar"></span>
                     <span class="nav-bar"></span>
@@ -90,6 +90,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('bfs')" data-algo="bfs">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('bfs')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="bfs" onclick="QuizModal.open('bfs')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -121,6 +122,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('dfs')" data-algo="dfs">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('dfs')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="dfs" onclick="QuizModal.open('dfs')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -152,6 +154,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('dijkstra')" data-algo="dijkstra">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('dijkstra')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="dijkstra" onclick="QuizModal.open('dijkstra')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -183,6 +186,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('prim')" data-algo="prim">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('prim')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="prim" onclick="QuizModal.open('prim')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -214,6 +218,7 @@
                         <div class="algorithm-actions">
                             <button class="btn btn-primary" onclick="openAlgorithmModal('kruskal')" data-algo="kruskal">Visualize</button>
                             <button class="btn btn-secondary" onclick="showAlgorithmTheory('kruskal')">Learn More</button>
+                            <button class="btn btn-quiz" data-quiz="kruskal" onclick="QuizModal.open('kruskal')">Take Quiz</button>
                         </div>
                     </div>
                 </div>
@@ -577,5 +582,7 @@
     </script>
     <script src="js/shareURLGraph.js"></script>
     <script src="js/progressTracker.js"></script>
+    <script src="js/quizData.js"></script>
+    <script src="js/quizModal.js"></script>
 </body>
 </html>
